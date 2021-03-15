@@ -13,7 +13,7 @@ There is another view for the user profile, that shows a cover image above the s
 The functionality to follow/unfollow is very intuitive. '+' buttons to follow close to not followed users are shown as well as an explicit button to follow/unfollow on the profile user
 
 
-## Screenshot of the page
+## Screenchot of the page
 
 
 ## Built With
@@ -26,6 +26,8 @@ The functionality to follow/unfollow is very intuitive. '+' buttons to follow cl
    - RSpec(Testing)
    - Capybara(Testing)
    - Bullet(Developing)
+
+
 
 ## Getting Started
 
@@ -82,13 +84,12 @@ It will run the 3 test files:
 
 👤 **Author**
 
+
 👤 **TSHEPO DAVID MOLEFE**
 
 - GitHub: [@githubhandle](https://github.com/TSHEPO-CLOUD)
 - Twitter: [@twitterhandle](https://twitter.com/tshepomolefem)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/tshepo-molefe-8153313b)
-
-
 ## 🤝 Contributing
 
 Contributions, issues and feature requests are welcome!

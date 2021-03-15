@@ -1,0 +1,101 @@
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (325.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (84.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20210209100316)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "username" text, "full_name" text, "photo" text, "cover_image" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20210209100316"]]
+  [1m[36mTRANSACTION (77.7ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateOpinions (20210209100439)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "opinions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "text" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20210209100439"]]
+  [1m[36mTRANSACTION (79.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateFollowings (20210209100456)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "followings" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "follower_id" integer, "followed_id" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_followings_on_follower_id" ON "followings" ("follower_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_followings_on_followed_id" ON "followings" ("followed_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "afollowings" ("id" integer NOT NULL PRIMARY KEY, "follower_id" integer DEFAULT NULL, "followed_id" integer DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_afollowings_on_followed_id" ON "afollowings" ("followed_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_afollowings_on_follower_id" ON "afollowings" ("follower_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "afollowings" ("id","follower_id","followed_id","created_at","updated_at")
+                     SELECT "id","follower_id","followed_id","created_at","updated_at" FROM "followings"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "followings"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "followings" ("id" integer NOT NULL PRIMARY KEY, "follower_id" integer DEFAULT NULL, "followed_id" integer DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_1668ccdb36"
+FOREIGN KEY ("follower_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_followings_on_follower_id" ON "followings" ("follower_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_followings_on_followed_id" ON "followings" ("followed_id")[0m
+  [1m[35m (0.0ms)[0m  [1m[32mINSERT INTO "followings" ("id","follower_id","followed_id","created_at","updated_at")
+                     SELECT "id","follower_id","followed_id","created_at","updated_at" FROM "afollowings"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "afollowings"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "afollowings" ("id" integer NOT NULL PRIMARY KEY, "follower_id" integer DEFAULT NULL, "followed_id" integer DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_afollowings_on_followed_id" ON "afollowings" ("followed_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_afollowings_on_follower_id" ON "afollowings" ("follower_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "afollowings" ("id","follower_id","followed_id","created_at","updated_at")
+                     SELECT "id","follower_id","followed_id","created_at","updated_at" FROM "followings"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "followings"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "followings" ("id" integer NOT NULL PRIMARY KEY, "follower_id" integer DEFAULT NULL, "followed_id" integer DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_1668ccdb36"
+FOREIGN KEY ("follower_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_a56ad8ead3"
+FOREIGN KEY ("followed_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_followings_on_follower_id" ON "followings" ("follower_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_followings_on_followed_id" ON "followings" ("followed_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "followings" ("id","follower_id","followed_id","created_at","updated_at")
+                     SELECT "id","follower_id","followed_id","created_at","updated_at" FROM "afollowings"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "afollowings"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20210209100456"]]
+  [1m[36mTRANSACTION (78.6ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddUserIdToOpinions (20210209101118)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "opinions" ADD "user_id" integer[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20210209101118"]]
+  [1m[36mTRANSACTION (54.3ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddCopiedIdToOpinions (20210209101141)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "opinions" ADD "copied_id" integer[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20210209101141"]]
+  [1m[36mTRANSACTION (55.5ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddIndexToOpinions (20210209101201)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_opinions_on_user_id" ON "opinions" ("user_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_opinions_on_copied_id" ON "opinions" ("copied_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20210209101201"]]
+  [1m[36mTRANSACTION (79.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-03-15 17:33:18.397327"], ["updated_at", "2021-03-15 17:33:18.397327"]]
+  [1m[36mTRANSACTION (83.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2021-03-15 19:34:11 +0200
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by OpinionsController#index as HTML
+Completed 500 Internal Server Error in 12ms (ActiveRecord: 0.3ms | Allocations: 5280)
+
+
+  
+NoMethodError (undefined method `all' for :delete:Symbol):
+  
+app/models/user.rb:4:in `<class:User>'
+app/models/user.rb:1:in `<main>'
+app/controllers/opinions_controller.rb:11:in `index'

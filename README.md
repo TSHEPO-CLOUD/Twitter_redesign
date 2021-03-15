@@ -13,8 +13,8 @@ There is another view for the user profile, that shows a cover image above the s
 The functionality to follow/unfollow is very intuitive. '+' buttons to follow close to not followed users are shown as well as an explicit button to follow/unfollow on the profile user
 
 
-## Screenchot of the page
-![Screenshot Profile Page](./app/assets/images/userPage.png)
+## Screenshot of the page
+
 
 ## Built With
 
@@ -26,22 +26,6 @@ The functionality to follow/unfollow is very intuitive. '+' buttons to follow cl
    - RSpec(Testing)
    - Capybara(Testing)
    - Bullet(Developing)
-
-## Live Demo
-
-[Live Demo Link](https://twitter-caps.herokuapp.com/)
-
-## Video Presentation
-
-[Project Presentation](https://www.loom.com/share/035dfe197f1b44d18f32b719da7191ff)
-
-## Video Presentation Redo
-
-[Project Presentation](https://www.loom.com/share/4535b01ed93745e78fc454d3eed3e497)
-
-## Button to deploy in heroku 
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 ## Getting Started
 
@@ -98,12 +82,12 @@ It will run the 3 test files:
 
 👤 **Author**
 
-Zerradi Amine
+👤 **TSHEPO DAVID MOLEFE**
 
-- Github: [@dasileker](https://github.com/Stricks1)
-- E-mail: [Zerradi Amine](e-mail:zerradi.amine@hotmail.com)
-- Linkedin: [Zerradi amine](https://www.linkedin.com/in/amine-zerradi-46b0a697/)
-- Twitter: [@dasileker](https://twitter.com/@dasileker)
+- GitHub: [@githubhandle](https://github.com/TSHEPO-CLOUD)
+- Twitter: [@twitterhandle](https://twitter.com/tshepomolefem)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/tshepo-molefe-8153313b)
+
 
 ## 🤝 Contributing
 

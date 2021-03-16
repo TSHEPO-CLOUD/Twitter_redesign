@@ -1,0 +1,1425 @@
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (72.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (54.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20210209100316)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "username" text, "full_name" text, "photo" text, "cover_image" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20210209100316"]]
+  [1m[36mTRANSACTION (67.6ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateOpinions (20210209100439)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "opinions" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "text" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20210209100439"]]
+  [1m[36mTRANSACTION (52.3ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateFollowings (20210209100456)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "followings" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "follower_id" integer, "followed_id" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_followings_on_follower_id" ON "followings" ("follower_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_followings_on_followed_id" ON "followings" ("followed_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "afollowings" ("id" integer NOT NULL PRIMARY KEY, "follower_id" integer DEFAULT NULL, "followed_id" integer DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_afollowings_on_followed_id" ON "afollowings" ("followed_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_afollowings_on_follower_id" ON "afollowings" ("follower_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "afollowings" ("id","follower_id","followed_id","created_at","updated_at")
+                     SELECT "id","follower_id","followed_id","created_at","updated_at" FROM "followings"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "followings"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "followings" ("id" integer NOT NULL PRIMARY KEY, "follower_id" integer DEFAULT NULL, "followed_id" integer DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_1668ccdb36"
+FOREIGN KEY ("follower_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_followings_on_follower_id" ON "followings" ("follower_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_followings_on_followed_id" ON "followings" ("followed_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "followings" ("id","follower_id","followed_id","created_at","updated_at")
+                     SELECT "id","follower_id","followed_id","created_at","updated_at" FROM "afollowings"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "afollowings"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "afollowings" ("id" integer NOT NULL PRIMARY KEY, "follower_id" integer DEFAULT NULL, "followed_id" integer DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_afollowings_on_followed_id" ON "afollowings" ("followed_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_afollowings_on_follower_id" ON "afollowings" ("follower_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "afollowings" ("id","follower_id","followed_id","created_at","updated_at")
+                     SELECT "id","follower_id","followed_id","created_at","updated_at" FROM "followings"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "followings"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "followings" ("id" integer NOT NULL PRIMARY KEY, "follower_id" integer DEFAULT NULL, "followed_id" integer DEFAULT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_1668ccdb36"
+FOREIGN KEY ("follower_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_a56ad8ead3"
+FOREIGN KEY ("followed_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_followings_on_follower_id" ON "followings" ("follower_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_followings_on_followed_id" ON "followings" ("followed_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "followings" ("id","follower_id","followed_id","created_at","updated_at")
+                     SELECT "id","follower_id","followed_id","created_at","updated_at" FROM "afollowings"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "afollowings"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20210209100456"]]
+  [1m[36mTRANSACTION (57.9ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddUserIdToOpinions (20210209101118)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "opinions" ADD "user_id" integer[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20210209101118"]]
+  [1m[36mTRANSACTION (45.5ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddCopiedIdToOpinions (20210209101141)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "opinions" ADD "copied_id" integer[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20210209101141"]]
+  [1m[36mTRANSACTION (43.8ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddIndexToOpinions (20210209101201)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE INDEX "index_opinions_on_user_id" ON "opinions" ("user_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_opinions_on_copied_id" ON "opinions" ("copied_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20210209101201"]]
+  [1m[36mTRANSACTION (53.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-03-15 17:54:43.631225"], ["updated_at", "2021-03-15 17:54:43.631225"]]
+  [1m[36mTRANSACTION (37.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2021-03-15 19:55:02 +0200
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by OpinionsController#index as HTML
+Completed 500 Internal Server Error in 27ms (ActiveRecord: 0.5ms | Allocations: 5280)
+
+
+  
+NoMethodError (undefined method `all' for :delete:Symbol):
+  
+app/models/user.rb:4:in `<class:User>'
+app/models/user.rb:1:in `<main>'
+app/controllers/opinions_controller.rb:11:in `index'
+Started GET "/" for 127.0.0.1 at 2021-03-15 19:56:21 +0200
+Processing by OpinionsController#index as HTML
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/models/opinion.rb:6:in `block in <class:Opinion>'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.4ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" ORDER BY "opinions"."created_at" DESC[0m
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 9.4ms | Allocations: 1444)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC[0m
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 3.1ms | Allocations: 718)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 16.5ms | Allocations: 2806)
+  Rendered layout layouts/application.html.erb (Duration: 4435.2ms | Allocations: 414450)
+Completed 200 OK in 4562ms (Views: 4484.7ms | ActiveRecord: 2.0ms | Allocations: 423690)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 19:56:34 +0200
+Processing by OpinionsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.1ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" ORDER BY "opinions"."created_at" DESC[0m
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 1.5ms | Allocations: 517)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC[0m
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 1.0ms | Allocations: 482)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 3.2ms | Allocations: 1141)
+  Rendered layout layouts/application.html.erb (Duration: 32.3ms | Allocations: 26657)
+Completed 200 OK in 36ms (Views: 32.9ms | ActiveRecord: 0.2ms | Allocations: 27250)
+
+
+Started GET "/login" for 127.0.0.1 at 2021-03-15 19:56:36 +0200
+Processing by SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 2.7ms | Allocations: 394)
+  Rendered layout layouts/application.html.erb (Duration: 25.7ms | Allocations: 25799)
+Completed 200 OK in 29ms (Views: 27.5ms | ActiveRecord: 0.0ms | Allocations: 26784)
+
+
+Started POST "/sessions" for 127.0.0.1 at 2021-03-15 19:56:44 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "username"=>"tshepomolefeda@gmail.com", "commit"=>"Login"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "tshepomolefeda@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/sessions_controller.rb:26:in `set_user'
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 0.6ms | Allocations: 161)
+  Rendered layout layouts/application.html.erb (Duration: 17.3ms | Allocations: 25551)
+Completed 200 OK in 22ms (Views: 17.9ms | ActiveRecord: 0.2ms | Allocations: 26913)
+
+
+Started POST "/sessions" for 127.0.0.1 at 2021-03-15 19:56:49 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "username"=>"mcmolefe", "commit"=>"Login"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "mcmolefe"], ["LIMIT", 1]]
+  ↳ app/controllers/sessions_controller.rb:26:in `set_user'
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 0.2ms | Allocations: 161)
+  Rendered layout layouts/application.html.erb (Duration: 26.7ms | Allocations: 25552)
+Completed 200 OK in 30ms (Views: 27.3ms | ActiveRecord: 0.2ms | Allocations: 26436)
+
+
+Started POST "/sessions" for 127.0.0.1 at 2021-03-15 19:57:00 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "username"=>"tshepo", "commit"=>"Login"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "tshepo"], ["LIMIT", 1]]
+  ↳ app/controllers/sessions_controller.rb:26:in `set_user'
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 0.6ms | Allocations: 161)
+  Rendered layout layouts/application.html.erb (Duration: 30.5ms | Allocations: 25551)
+Completed 200 OK in 32ms (Views: 31.1ms | ActiveRecord: 0.1ms | Allocations: 26429)
+
+
+Started GET "/signup" for 127.0.0.1 at 2021-03-15 19:57:03 +0200
+Processing by UsersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form_new.html.erb (Duration: 28.6ms | Allocations: 1697)
+  Rendered users/new.html.erb within layouts/application (Duration: 29.6ms | Allocations: 1988)
+  Rendered layout layouts/application.html.erb (Duration: 47.9ms | Allocations: 27397)
+Completed 200 OK in 56ms (Views: 49.2ms | ActiveRecord: 0.3ms | Allocations: 31174)
+
+
+Started POST "/users" for 127.0.0.1 at 2021-03-15 19:57:14 +0200
+Processing by UsersController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"username"=>"tshepo", "full_name"=>"molefe", "photo"=>"", "cover_image"=>""}, "commit"=>"Create Account"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/users_controller.rb:27:in `block in create'
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "tshepo"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:27:in `block in create'
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("username", "full_name", "photo", "cover_image", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["username", "tshepo"], ["full_name", "molefe"], ["photo", ""], ["cover_image", ""], ["created_at", "2021-03-15 17:57:14.481366"], ["updated_at", "2021-03-15 17:57:14.481366"]]
+  ↳ app/controllers/users_controller.rb:27:in `block in create'
+  [1m[36mTRANSACTION (110.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/users_controller.rb:27:in `block in create'
+Redirected to http://localhost:3000/opinions
+Completed 302 Found in 125ms (ActiveRecord: 111.2ms | Allocations: 4337)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 19:57:14 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.2ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 1.2ms | Allocations: 551)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 1.0ms | Allocations: 517)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 4.6ms | Allocations: 1750)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 37.1ms | Allocations: 29437)
+Completed 200 OK in 117ms (Views: 37.2ms | ActiveRecord: 1.3ms | Allocations: 40954)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 19:57:23 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.4ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 2.3ms | Allocations: 545)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 1.7ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 5.8ms | Allocations: 1517)
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 30.4ms | Allocations: 28443)
+Completed 200 OK in 38ms (Views: 30.3ms | ActiveRecord: 1.3ms | Allocations: 30917)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 19:57:25 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.2ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 1.9ms | Allocations: 545)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 2.6ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 5.9ms | Allocations: 1517)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 42.8ms | Allocations: 28444)
+Completed 200 OK in 55ms (Views: 43.0ms | ActiveRecord: 1.2ms | Allocations: 30913)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 19:57:25 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (1.0ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 4.4ms | Allocations: 545)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 2.1ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 9.4ms | Allocations: 1517)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 40.6ms | Allocations: 28421)
+Completed 200 OK in 51ms (Views: 40.6ms | ActiveRecord: 1.9ms | Allocations: 30897)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 19:57:26 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.6ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 3.9ms | Allocations: 545)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 3.3ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 9.1ms | Allocations: 1517)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 46.0ms | Allocations: 28421)
+Completed 200 OK in 55ms (Views: 45.1ms | ActiveRecord: 2.1ms | Allocations: 30896)
+
+
+Started GET "/users/1/edit" for 127.0.0.1 at 2021-03-15 19:57:27 +0200
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:57:in `set_user'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering users/edit.html.erb within layouts/application
+  Rendered users/_form_edit.html.erb (Duration: 2.5ms | Allocations: 1025)
+  Rendered users/edit.html.erb within layouts/application (Duration: 3.6ms | Allocations: 1349)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 41.9ms | Allocations: 28306)
+Completed 200 OK in 48ms (Views: 42.4ms | ActiveRecord: 0.8ms | Allocations: 29712)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 19:57:31 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.5ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 3.8ms | Allocations: 561)
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 3.5ms | Allocations: 504)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 10.2ms | Allocations: 1553)
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 44.6ms | Allocations: 28480)
+Completed 200 OK in 58ms (Views: 43.9ms | ActiveRecord: 2.2ms | Allocations: 30950)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 19:57:32 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (1.3ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 5.0ms | Allocations: 545)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 1.6ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 10.4ms | Allocations: 1517)
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 40.2ms | Allocations: 28422)
+Completed 200 OK in 49ms (Views: 40.3ms | ActiveRecord: 2.4ms | Allocations: 30892)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 19:57:33 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.3ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 2.1ms | Allocations: 545)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 3.2ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 7.2ms | Allocations: 1517)
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 62.3ms | Allocations: 28448)
+Completed 200 OK in 70ms (Views: 61.2ms | ActiveRecord: 2.0ms | Allocations: 30915)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2021-03-15 19:57:35 +0200
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:57:in `set_user'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ? AND "users"."id" = ? LIMIT ?[0m  [["follower_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/users_helper.rb:4:in `follow_unfollow'
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ? AND "users"."id" = ? LIMIT ?[0m  [["follower_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/users_helper.rb:7:in `follow_unfollow'
+  [1m[36mOpinion Load (0.2ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" = ? ORDER BY "opinions"."created_at" DESC[0m  [["user_id", 1]]
+  ↳ app/views/users/_opi_user.html.erb:4
+  Rendered users/_opi_user.html.erb (Duration: 1.9ms | Allocations: 789)
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ? AND "users"."id" = ? LIMIT ?[0m  [["follower_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/users_helper.rb:77:in `link_follow'
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ? AND "users"."id" = ? LIMIT ?[0m  [["follower_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/users_helper.rb:81:in `link_unfollow'
+  Rendered users/_profile_info.html.erb (Duration: 8.7ms | Allocations: 4834)
+  Rendered users/show.html.erb within layouts/application (Duration: 23.9ms | Allocations: 8337)
+  Rendered layout layouts/application.html.erb (Duration: 24.1ms | Allocations: 8401)
+Completed 500 Internal Server Error in 28ms (ActiveRecord: 0.9ms | Allocations: 9627)
+
+
+  
+ActionView::Template::Error (undefined method `opinions' for #<User:0x00007f294aaa3b90>):
+     9:   
+    10:   <div class='d-flex flex-column flex-md-row'>
+    11:     <div class='border flex-grow-1'>
+    12:       <span class='text-center d-block font-weight-bolder'><%= @user.opinions.count %></span>
+    13:       <span class='text-center d-block bold-flw color-light-grey'>Opinions</span>
+    14:     </div>
+    15:     <div class='border flex-grow-1'>
+  
+app/views/users/_profile_info.html.erb:12
+app/views/users/show.html.erb:18
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 19:57:58 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.5ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 3.2ms | Allocations: 546)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 1.7ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 8.3ms | Allocations: 1530)
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 60.9ms | Allocations: 28479)
+Completed 200 OK in 67ms (Views: 60.5ms | ActiveRecord: 1.4ms | Allocations: 30953)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2021-03-15 19:58:00 +0200
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:57:in `set_user'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ? AND "users"."id" = ? LIMIT ?[0m  [["follower_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/users_helper.rb:4:in `follow_unfollow'
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ? AND "users"."id" = ? LIMIT ?[0m  [["follower_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/users_helper.rb:7:in `follow_unfollow'
+  [1m[36mOpinion Load (0.2ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" = ? ORDER BY "opinions"."created_at" DESC[0m  [["user_id", 1]]
+  ↳ app/views/users/_opi_user.html.erb:4
+  Rendered users/_opi_user.html.erb (Duration: 3.1ms | Allocations: 518)
+  [1m[36mCACHE User Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ? AND "users"."id" = ? LIMIT ?[0m  [["follower_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/users_helper.rb:77:in `link_follow'
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ? AND "users"."id" = ? LIMIT ?[0m  [["follower_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/users_helper.rb:81:in `link_unfollow'
+  Rendered users/_profile_info.html.erb (Duration: 9.7ms | Allocations: 4527)
+  Rendered users/show.html.erb within layouts/application (Duration: 23.4ms | Allocations: 7218)
+  Rendered layout layouts/application.html.erb (Duration: 23.5ms | Allocations: 7282)
+Completed 500 Internal Server Error in 28ms (ActiveRecord: 0.9ms | Allocations: 8369)
+
+
+  
+ActionView::Template::Error (undefined method `opinions' for #<User:0x00007f293c22a580>):
+     9:   
+    10:   <div class='d-flex flex-column flex-md-row'>
+    11:     <div class='border flex-grow-1'>
+    12:       <span class='text-center d-block font-weight-bolder'><%= @user.opinions.count %></span>
+    13:       <span class='text-center d-block bold-flw color-light-grey'>Opinions</span>
+    14:     </div>
+    15:     <div class='border flex-grow-1'>
+  
+app/views/users/_profile_info.html.erb:12
+app/views/users/show.html.erb:18
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 19:58:02 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.2ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 1.4ms | Allocations: 545)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 1.3ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 4.3ms | Allocations: 1517)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 32.3ms | Allocations: 28440)
+Completed 200 OK in 45ms (Views: 32.5ms | ActiveRecord: 1.0ms | Allocations: 30913)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 19:58:04 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.2ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 1.4ms | Allocations: 545)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 4.4ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 9.2ms | Allocations: 1517)
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 48.9ms | Allocations: 28412)
+Completed 200 OK in 54ms (Views: 48.4ms | ActiveRecord: 1.1ms | Allocations: 30872)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 19:58:05 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.4ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 2.8ms | Allocations: 545)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 2.5ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 8.1ms | Allocations: 1517)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 48.1ms | Allocations: 28420)
+Completed 200 OK in 62ms (Views: 47.9ms | ActiveRecord: 1.2ms | Allocations: 30890)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 19:58:07 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.3ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 2.1ms | Allocations: 545)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 1.6ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 6.5ms | Allocations: 1517)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 44.6ms | Allocations: 28420)
+Completed 200 OK in 57ms (Views: 44.1ms | ActiveRecord: 1.7ms | Allocations: 30880)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 19:58:08 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.3ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 2.2ms | Allocations: 545)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 2.3ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 7.2ms | Allocations: 1517)
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 41.9ms | Allocations: 28420)
+Completed 200 OK in 55ms (Views: 41.2ms | ActiveRecord: 2.1ms | Allocations: 30888)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2021-03-15 19:58:12 +0200
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:57:in `set_user'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ? AND "users"."id" = ? LIMIT ?[0m  [["follower_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/users_helper.rb:4:in `follow_unfollow'
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ? AND "users"."id" = ? LIMIT ?[0m  [["follower_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/users_helper.rb:7:in `follow_unfollow'
+  [1m[36mOpinion Load (0.4ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" = ? ORDER BY "opinions"."created_at" DESC[0m  [["user_id", 1]]
+  ↳ app/views/users/_opi_user.html.erb:4
+  Rendered users/_opi_user.html.erb (Duration: 4.6ms | Allocations: 518)
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ? AND "users"."id" = ? LIMIT ?[0m  [["follower_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/users_helper.rb:77:in `link_follow'
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ? AND "users"."id" = ? LIMIT ?[0m  [["follower_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/users_helper.rb:81:in `link_unfollow'
+  Rendered users/_profile_info.html.erb (Duration: 11.0ms | Allocations: 4528)
+  Rendered users/show.html.erb within layouts/application (Duration: 23.6ms | Allocations: 7210)
+  Rendered layout layouts/application.html.erb (Duration: 23.8ms | Allocations: 7274)
+Completed 500 Internal Server Error in 27ms (ActiveRecord: 1.0ms | Allocations: 8355)
+
+
+  
+ActionView::Template::Error (undefined method `opinions' for #<User:0x00007f2948fabef0>):
+     9:   
+    10:   <div class='d-flex flex-column flex-md-row'>
+    11:     <div class='border flex-grow-1'>
+    12:       <span class='text-center d-block font-weight-bolder'><%= @user.opinions.count %></span>
+    13:       <span class='text-center d-block bold-flw color-light-grey'>Opinions</span>
+    14:     </div>
+    15:     <div class='border flex-grow-1'>
+  
+app/views/users/_profile_info.html.erb:12
+app/views/users/show.html.erb:18
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 19:58:14 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.3ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 2.6ms | Allocations: 545)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 2.5ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 10.5ms | Allocations: 1517)
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 41.0ms | Allocations: 28448)
+Completed 200 OK in 46ms (Views: 40.8ms | ActiveRecord: 1.0ms | Allocations: 30914)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 19:58:16 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.3ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 2.1ms | Allocations: 545)
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 4.2ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 10.4ms | Allocations: 1517)
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 52.1ms | Allocations: 28430)
+Completed 200 OK in 66ms (Views: 52.2ms | ActiveRecord: 1.5ms | Allocations: 30916)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 19:58:17 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.2ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 2.7ms | Allocations: 545)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 4.1ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 8.6ms | Allocations: 1517)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 49.2ms | Allocations: 28420)
+Completed 200 OK in 54ms (Views: 48.8ms | ActiveRecord: 1.0ms | Allocations: 30888)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 19:58:18 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (1.1ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 4.3ms | Allocations: 545)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 3.3ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 9.5ms | Allocations: 1517)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 43.9ms | Allocations: 28420)
+Completed 200 OK in 51ms (Views: 42.7ms | ActiveRecord: 1.9ms | Allocations: 30908)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 19:58:19 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.7ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 4.2ms | Allocations: 545)
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 3.6ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 12.4ms | Allocations: 1517)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 50.2ms | Allocations: 28420)
+Completed 200 OK in 62ms (Views: 49.4ms | ActiveRecord: 2.0ms | Allocations: 30880)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 19:58:20 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.5ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 3.5ms | Allocations: 545)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 3.7ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 10.4ms | Allocations: 1517)
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 66.0ms | Allocations: 28420)
+Completed 200 OK in 80ms (Views: 65.2ms | ActiveRecord: 2.0ms | Allocations: 30888)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2021-03-15 19:58:22 +0200
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:57:in `set_user'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ? AND "users"."id" = ? LIMIT ?[0m  [["follower_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/users_helper.rb:4:in `follow_unfollow'
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ? AND "users"."id" = ? LIMIT ?[0m  [["follower_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/users_helper.rb:7:in `follow_unfollow'
+  [1m[36mOpinion Load (0.2ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" = ? ORDER BY "opinions"."created_at" DESC[0m  [["user_id", 1]]
+  ↳ app/views/users/_opi_user.html.erb:4
+  Rendered users/_opi_user.html.erb (Duration: 1.9ms | Allocations: 518)
+  [1m[36mCACHE User Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ? AND "users"."id" = ? LIMIT ?[0m  [["follower_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/users_helper.rb:77:in `link_follow'
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ? AND "users"."id" = ? LIMIT ?[0m  [["follower_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/users_helper.rb:81:in `link_unfollow'
+  Rendered users/_profile_info.html.erb (Duration: 16.1ms | Allocations: 4527)
+  Rendered users/show.html.erb within layouts/application (Duration: 24.0ms | Allocations: 7209)
+  Rendered layout layouts/application.html.erb (Duration: 24.8ms | Allocations: 7273)
+Completed 500 Internal Server Error in 30ms (ActiveRecord: 0.9ms | Allocations: 8335)
+
+
+  
+ActionView::Template::Error (undefined method `opinions' for #<User:0x00007f2949898fe0>):
+     9:   
+    10:   <div class='d-flex flex-column flex-md-row'>
+    11:     <div class='border flex-grow-1'>
+    12:       <span class='text-center d-block font-weight-bolder'><%= @user.opinions.count %></span>
+    13:       <span class='text-center d-block bold-flw color-light-grey'>Opinions</span>
+    14:     </div>
+    15:     <div class='border flex-grow-1'>
+  
+app/views/users/_profile_info.html.erb:12
+app/views/users/show.html.erb:18
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 20:00:19 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.2ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 2.3ms | Allocations: 796)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 1.6ms | Allocations: 705)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 9.8ms | Allocations: 2455)
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 37.7ms | Allocations: 29655)
+Completed 200 OK in 46ms (Views: 39.9ms | ActiveRecord: 1.0ms | Allocations: 32825)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2021-03-15 20:00:22 +0200
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:57:in `set_user'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ? AND "users"."id" = ? LIMIT ?[0m  [["follower_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/users_helper.rb:4:in `follow_unfollow'
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ? AND "users"."id" = ? LIMIT ?[0m  [["follower_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/users_helper.rb:7:in `follow_unfollow'
+  [1m[36mOpinion Load (0.1ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" = ? ORDER BY "opinions"."created_at" DESC[0m  [["user_id", 1]]
+  ↳ app/views/users/_opi_user.html.erb:4
+  Rendered users/_opi_user.html.erb (Duration: 3.0ms | Allocations: 768)
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ? AND "users"."id" = ? LIMIT ?[0m  [["follower_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/users_helper.rb:77:in `link_follow'
+  [1m[36mCACHE User Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ? AND "users"."id" = ? LIMIT ?[0m  [["follower_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/users_helper.rb:81:in `link_unfollow'
+  Rendered users/_profile_info.html.erb (Duration: 19.6ms | Allocations: 4809)
+  Rendered users/show.html.erb within layouts/application (Duration: 41.8ms | Allocations: 8265)
+  Rendered layout layouts/application.html.erb (Duration: 42.1ms | Allocations: 8329)
+Completed 500 Internal Server Error in 50ms (ActiveRecord: 1.2ms | Allocations: 9908)
+
+
+  
+ActionView::Template::Error (undefined method `Opinions' for #<User:0x00007f29486dbc08>):
+     9:   
+    10:   <div class='d-flex flex-column flex-md-row'>
+    11:     <div class='border flex-grow-1'>
+    12:       <span class='text-center d-block font-weight-bolder'><%= @user.Opinions.count %></span>
+    13:       <span class='text-center d-block bold-flw color-light-grey'>Opinions</span>
+    14:     </div>
+    15:     <div class='border flex-grow-1'>
+  
+app/views/users/_profile_info.html.erb:12
+app/views/users/show.html.erb:18
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 20:01:16 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.8ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 6.8ms | Allocations: 796)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 1.4ms | Allocations: 705)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 13.6ms | Allocations: 2455)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 46.0ms | Allocations: 29654)
+Completed 200 OK in 52ms (Views: 46.1ms | ActiveRecord: 1.4ms | Allocations: 32840)
+
+
+Started POST "/opinions" for 127.0.0.1 at 2021-03-15 20:01:23 +0200
+Processing by OpinionsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "opinion"=>{"text"=>""}, "commit"=>"Send Opinion"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 0.1ms | Allocations: 3240)
+
+
+  
+NoMethodError (undefined method `opinions' for #<User:0x00007f29403c9478>):
+  
+app/controllers/opinions_controller.rb:27:in `create'
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 20:01:42 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.4ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 1.9ms | Allocations: 546)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 0.9ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 4.6ms | Allocations: 1522)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 29.6ms | Allocations: 28435)
+Completed 200 OK in 37ms (Views: 29.6ms | ActiveRecord: 1.0ms | Allocations: 30886)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 20:01:56 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.3ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 2.4ms | Allocations: 545)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 2.6ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 7.2ms | Allocations: 1517)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 29.8ms | Allocations: 28420)
+Completed 200 OK in 38ms (Views: 29.4ms | ActiveRecord: 1.3ms | Allocations: 30886)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 20:01:57 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.4ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 3.1ms | Allocations: 545)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 3.8ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 8.5ms | Allocations: 1517)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 46.9ms | Allocations: 28427)
+Completed 200 OK in 51ms (Views: 46.3ms | ActiveRecord: 1.2ms | Allocations: 30892)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 20:02:01 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.8ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 4.5ms | Allocations: 545)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 3.3ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 12.7ms | Allocations: 1517)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 51.9ms | Allocations: 28471)
+Completed 200 OK in 65ms (Views: 51.7ms | ActiveRecord: 1.8ms | Allocations: 30934)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 20:02:05 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.3ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 2.1ms | Allocations: 545)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 2.2ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 6.7ms | Allocations: 1517)
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 50.4ms | Allocations: 28420)
+Completed 200 OK in 63ms (Views: 50.2ms | ActiveRecord: 1.2ms | Allocations: 30890)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 20:02:06 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.2ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 1.8ms | Allocations: 545)
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 2.2ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 5.9ms | Allocations: 1517)
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 38.3ms | Allocations: 28443)
+Completed 200 OK in 49ms (Views: 38.0ms | ActiveRecord: 1.2ms | Allocations: 30913)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 20:02:13 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.5ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 3.1ms | Allocations: 545)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 3.1ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 9.9ms | Allocations: 1517)
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 48.3ms | Allocations: 28443)
+Completed 200 OK in 58ms (Views: 47.5ms | ActiveRecord: 1.8ms | Allocations: 30903)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 20:02:14 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.5ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 3.1ms | Allocations: 545)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 3.8ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 11.4ms | Allocations: 1517)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 46.4ms | Allocations: 28420)
+Completed 200 OK in 59ms (Views: 46.2ms | ActiveRecord: 1.5ms | Allocations: 30886)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 20:02:15 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.5ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 3.7ms | Allocations: 545)
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 3.3ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 9.4ms | Allocations: 1517)
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 45.3ms | Allocations: 28438)
+Completed 200 OK in 58ms (Views: 44.5ms | ActiveRecord: 1.8ms | Allocations: 30914)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 20:02:16 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.4ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 3.8ms | Allocations: 545)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 3.0ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 10.8ms | Allocations: 1517)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 42.1ms | Allocations: 28424)
+Completed 200 OK in 53ms (Views: 42.1ms | ActiveRecord: 1.4ms | Allocations: 30892)
+
+
+Started GET "/users/1/edit" for 127.0.0.1 at 2021-03-15 20:02:17 +0200
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:57:in `set_user'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering users/edit.html.erb within layouts/application
+  Rendered users/_form_edit.html.erb (Duration: 12.8ms | Allocations: 1016)
+  Rendered users/edit.html.erb within layouts/application (Duration: 14.4ms | Allocations: 1335)
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 46.0ms | Allocations: 28305)
+Completed 200 OK in 52ms (Views: 47.6ms | ActiveRecord: 0.6ms | Allocations: 30075)
+
+
+Started PATCH "/users/1" for 127.0.0.1 at 2021-03-15 20:02:20 +0200
+Processing by UsersController#update as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"full_name"=>"molefe", "photo"=>"", "cover_image"=>""}, "commit"=>"Update Account", "id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:57:in `set_user'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/users_controller.rb:39:in `block in update'
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = ? AND "users"."id" != ? LIMIT ?[0m  [["username", "tshepo"], ["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:39:in `block in update'
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/users_controller.rb:39:in `block in update'
+Redirected to http://localhost:3000/opinions
+Completed 302 Found in 7ms (ActiveRecord: 0.4ms | Allocations: 2917)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 20:02:20 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.2ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 1.7ms | Allocations: 546)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 0.9ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 4.3ms | Allocations: 1530)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 29.9ms | Allocations: 28474)
+Completed 200 OK in 39ms (Views: 29.8ms | ActiveRecord: 1.3ms | Allocations: 30957)
+
+
+Started GET "/users/1/edit" for 127.0.0.1 at 2021-03-15 20:02:26 +0200
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:57:in `set_user'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering users/edit.html.erb within layouts/application
+  Rendered users/_form_edit.html.erb (Duration: 1.5ms | Allocations: 576)
+  Rendered users/edit.html.erb within layouts/application (Duration: 1.8ms | Allocations: 639)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 34.2ms | Allocations: 27557)
+Completed 200 OK in 40ms (Views: 34.2ms | ActiveRecord: 1.1ms | Allocations: 28834)
+
+
+Started DELETE "/users/1" for 127.0.0.1 at 2021-03-15 20:02:28 +0200
+Processing by UsersController#destroy as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:57:in `set_user'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/users_controller.rb:48:in `destroy'
+  [1m[36mFollowing Load (0.2ms)[0m  [1m[34mSELECT "followings".* FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 1]]
+  ↳ app/controllers/users_controller.rb:48:in `destroy'
+  [1m[36mFollowing Load (0.1ms)[0m  [1m[34mSELECT "followings".* FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 1]]
+  ↳ app/controllers/users_controller.rb:48:in `destroy'
+  [1m[36mUser Destroy (0.2ms)[0m  [1m[31mDELETE FROM "users" WHERE "users"."id" = ?[0m  [["id", 1]]
+  ↳ app/controllers/users_controller.rb:48:in `destroy'
+  [1m[36mTRANSACTION (246.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/users_controller.rb:48:in `destroy'
+Redirected to http://localhost:3000/logout
+Completed 302 Found in 258ms (ActiveRecord: 247.5ms | Allocations: 4884)
+
+
+Started GET "/logout" for 127.0.0.1 at 2021-03-15 20:02:28 +0200
+Processing by SessionsController#destroy as HTML
+Redirected to http://localhost:3000/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms | Allocations: 310)
+
+
+Started GET "/" for 127.0.0.1 at 2021-03-15 20:02:29 +0200
+Processing by OpinionsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.1ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" ORDER BY "opinions"."created_at" DESC[0m
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 1.1ms | Allocations: 508)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."created_at" DESC[0m
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 1.0ms | Allocations: 482)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 2.8ms | Allocations: 1129)
+  Rendered layout layouts/application.html.erb (Duration: 22.7ms | Allocations: 26531)
+Completed 200 OK in 25ms (Views: 23.1ms | ActiveRecord: 0.2ms | Allocations: 27096)
+
+
+Started GET "/login" for 127.0.0.1 at 2021-03-15 20:02:32 +0200
+Processing by SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 1.1ms | Allocations: 360)
+  Rendered layout layouts/application.html.erb (Duration: 27.8ms | Allocations: 25764)
+Completed 200 OK in 30ms (Views: 29.0ms | ActiveRecord: 0.0ms | Allocations: 26699)
+
+
+Started POST "/sessions" for 127.0.0.1 at 2021-03-15 20:02:35 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "username"=>"tshepo", "commit"=>"Login"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "tshepo"], ["LIMIT", 1]]
+  ↳ app/controllers/sessions_controller.rb:26:in `set_user'
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 0.7ms | Allocations: 161)
+  Rendered layout layouts/application.html.erb (Duration: 25.1ms | Allocations: 25551)
+Completed 200 OK in 29ms (Views: 26.0ms | ActiveRecord: 0.2ms | Allocations: 26441)
+
+
+Started GET "/signup" for 127.0.0.1 at 2021-03-15 20:02:39 +0200
+Processing by UsersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form_new.html.erb (Duration: 1.6ms | Allocations: 1113)
+  Rendered users/new.html.erb within layouts/application (Duration: 2.6ms | Allocations: 1397)
+  Rendered layout layouts/application.html.erb (Duration: 23.6ms | Allocations: 26821)
+Completed 200 OK in 27ms (Views: 24.4ms | ActiveRecord: 0.0ms | Allocations: 27399)
+
+
+Started POST "/users" for 127.0.0.1 at 2021-03-15 20:02:45 +0200
+Processing by UsersController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"username"=>"tshepo", "full_name"=>"ddd", "photo"=>"", "cover_image"=>""}, "commit"=>"Create Account"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/users_controller.rb:27:in `block in create'
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "tshepo"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:27:in `block in create'
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("username", "full_name", "photo", "cover_image", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["username", "tshepo"], ["full_name", "ddd"], ["photo", ""], ["cover_image", ""], ["created_at", "2021-03-15 18:02:45.057016"], ["updated_at", "2021-03-15 18:02:45.057016"]]
+  ↳ app/controllers/users_controller.rb:27:in `block in create'
+  [1m[36mTRANSACTION (100.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/users_controller.rb:27:in `block in create'
+Redirected to http://localhost:3000/opinions
+Completed 302 Found in 114ms (ActiveRecord: 101.2ms | Allocations: 3938)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-15 20:02:45 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 2]]
+  ↳ app/models/user.rb:10:in `followeds_opinions'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 2]]
+  ↳ app/models/user.rb:16:in `who_follow'
+  Rendering layout layouts/application.html.erb
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.3ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."user_id" IN (SELECT "users"."id" FROM "users" WHERE "users"."id" = ?) ORDER BY "opinions"."created_at" DESC[0m  [["id", 2]]
+  ↳ app/views/opinions/_opi_order.html.erb:4
+  Rendered opinions/_opi_order.html.erb (Duration: 2.0ms | Allocations: 546)
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != ? ORDER BY "users"."created_at" DESC[0m  [["id", 2]]
+  ↳ app/views/opinions/_who_user.html.erb:2
+  Rendered opinions/_who_user.html.erb (Duration: 1.2ms | Allocations: 496)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 4.7ms | Allocations: 1530)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."follower_id" = ?[0m  [["follower_id", 2]]
+  ↳ app/helpers/application_helper.rb:78:in `user_info_logged'
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "followings" WHERE "followings"."followed_id" = ?[0m  [["followed_id", 2]]
+  ↳ app/helpers/application_helper.rb:80:in `user_info_logged'
+  Rendered layout layouts/application.html.erb (Duration: 36.5ms | Allocations: 28488)
+Completed 200 OK in 46ms (Views: 36.3ms | ActiveRecord: 0.9ms | Allocations: 30975)
+
+
+Started POST "/opinions" for 127.0.0.1 at 2021-03-15 20:02:50 +0200
+Processing by OpinionsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "opinion"=>{"text"=>""}, "commit"=>"Send Opinion"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6:in `current_user'
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 0.1ms | Allocations: 3260)
+
+
+  
+NoMethodError (undefined method `opinions' for #<User:0x00007f294aa41d78>):
+  
+app/controllers/opinions_controller.rb:27:in `create'

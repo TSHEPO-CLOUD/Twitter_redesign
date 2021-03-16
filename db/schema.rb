@@ -10,36 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_09_101201) do
-
-  create_table "followings", force: :cascade do |t|
-    t.integer "follower_id"
-    t.integer "followed_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["followed_id"], name: "index_followings_on_followed_id"
-    t.index ["follower_id"], name: "index_followings_on_follower_id"
+ActiveRecord::Schema.define(version: 20_210_209_101_201) do
+  create_table 'followings', force: :cascade do |t|
+    t.integer 'follower_id'
+    t.integer 'followed_id'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['followed_id'], name: 'index_followings_on_followed_id'
+    t.index ['follower_id'], name: 'index_followings_on_follower_id'
   end
 
-  create_table "opinions", force: :cascade do |t|
-    t.text "text"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
-    t.integer "copied_id"
-    t.index ["copied_id"], name: "index_opinions_on_copied_id"
-    t.index ["user_id"], name: "index_opinions_on_user_id"
+  create_table 'opinions', force: :cascade do |t|
+    t.text 'text'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.integer 'user_id'
+    t.integer 'copied_id'
+    t.index ['copied_id'], name: 'index_opinions_on_copied_id'
+    t.index ['user_id'], name: 'index_opinions_on_user_id'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.text "username"
-    t.text "full_name"
-    t.text "photo"
-    t.text "cover_image"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'users', force: :cascade do |t|
+    t.text 'username'
+    t.text 'full_name'
+    t.text 'photo'
+    t.text 'cover_image'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  add_foreign_key "followings", "users", column: "followed_id"
-  add_foreign_key "followings", "users", column: "follower_id"
+  add_foreign_key 'followings', 'users', column: 'followed_id'
+  add_foreign_key 'followings', 'users', column: 'follower_id'
 end

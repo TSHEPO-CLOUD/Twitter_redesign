@@ -21,11 +21,14 @@ module ApplicationHelper
 
   def logged_btn
     ret = ''
-    ret.concat((link_to image_tag('https://raw.githubusercontent.com/Stricks1/cap-twitter/b3ee28c00f9504f9995a544ad14f2440b83f40a0/app/assets/images/pencil.svg', class: 'logo-sm', alt: 'edit'), edit_user_path(current_user)))
+    ret.concat((link_to 
+image_tag('https://raw.githubusercontent.com/Stricks1/cap-twitter/b3ee28c00f9504f9995a544ad14f2440b83f40a0/app/assets/images/pencil.svg', class: 'logo-sm', alt: 'edit'), edit_user_path(current_user)))
     ret.concat(' ')
-    ret.concat((link_to image_tag('https://raw.githubusercontent.com/Stricks1/cap-twitter/23f63c21dad717cb072411ac3a3c1c338891995a/app/assets/images/mail.svg', class: 'logo-sm', alt: 'email')))
+    ret.concat((link_to image_tag(
+'https://raw.githubusercontent.com/Stricks1/cap-twitter/23f63c21dad717cb072411ac3a3c1c338891995a/app/assets/images/mail.svg', class: 'logo-sm', alt: 'email')))
     ret.concat(' ')
-    ret.concat((link_to image_tag('https://raw.githubusercontent.com/Stricks1/cap-twitter/23f63c21dad717cb072411ac3a3c1c338891995a/app/assets/images/search.svg', class: 'logo-sm', alt: 'search')))
+    ret.concat((link_to image_tag(
+'https://raw.githubusercontent.com/Stricks1/cap-twitter/23f63c21dad717cb072411ac3a3c1c338891995a/app/assets/images/search.svg', class: 'logo-sm', alt: 'search')))
     ret.concat(' ')
     ret.concat((link_to 'Logout', logout_path, class: 'color-grey align-self-center px-2 flex-nowrap'))
   end
@@ -50,13 +53,18 @@ module ApplicationHelper
     begin
       image_tag(usr.photo, class: 'profile p-2', alt: usr.username, onerror: 'imgErrorPhoto(this);')
     rescue Sprockets::Rails::Helper::AssetNotFound
-      image_tag('https://raw.githubusercontent.com/Stricks1/cap-twitter/feature/app/assets/images/user_default.png', class: 'profile p-2', alt: usr.username)
+      image_tag('https://raw.githubusercontent.com/Stricks1/cap-twitter/feature/app/assets/images/user_default.png', 
+class: 'profile p-2', alt: usr.username)
     end
   end
 
   def fill_user_images(usr)
-    usr.photo = 'https://raw.githubusercontent.com/Stricks1/cap-twitter/feature/app/assets/images/user_default.png' if usr.photo.blank?
-    usr.cover_image = 'https://raw.githubusercontent.com/Stricks1/cap-twitter/feature/app/assets/images/cover_default.jpg' if usr.cover_image.blank?
+    if usr.photo.blank?
+      usr.photo = 'https://raw.githubusercontent.com/Stricks1/cap-twitter/feature/app/assets/images/user_default.png'
+    end
+    if usr.cover_image.blank?
+      usr.cover_image = 'https://raw.githubusercontent.com/Stricks1/cap-twitter/feature/app/assets/images/cover_default.jpg'
+    end
     usr
   end
 

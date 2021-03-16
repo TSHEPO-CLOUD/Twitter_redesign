@@ -36,7 +36,6 @@ You can get a local copy of the repository please run the following commands on 
 ```
 $ cd <folder>
 
-$ git clone git@github.com:dasileker/twitter-cap.git
 ```
 
 You need to install the required gems:

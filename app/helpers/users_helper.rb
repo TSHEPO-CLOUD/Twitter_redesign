@@ -1,98 +1,116 @@
-# frozen_string_literal: true
 module UsersHelper
-  def follow_unfollow(user)
-    cntnt = link_to 'Unfollow', following_path(user), method: :delete, 
-class: 'textdec-none form-btn unfollow-btn align-self-center'
-    return cntnt if current_user.follows.include?(user)
-
-    cntnt = link_to 'Follow', follow_path(user), class: 'textdec-none form-btn unfollow-btn align-self-center'
-    return cntnt unless current_user.follows.include?(user) || current_user == user
-
-    nil
+  def gel_all_unfollowed_users(user = current_user)
+    all_users = User.order(created_at: :desc).all.where.not(id: user.id)
+    all_users - user.followeds
   end
 
-  def user_edit_destroy_retweet(opi)
-    cntnt = ''
-    if current_user && opi.user.username == current_user.username
-      cntnt.concat((link_to 
-image_tag('https://raw.githubusercontent.com/Stricks1/Twitter-redesign/b3ee28c00f9504f9995a544ad14f2440b83f40a0/app/assets/images/pencil.svg', class: 'edit-opinion', alt: 'edit'), edit_opinion_path(opi)))
-      cntnt.concat((link_to 'x', opi, method: :delete, data: { confirm: 'Are you sure?' }, class: 'textdec-none ml-1'))
-      cntnt.html_safe
-    elsif current_user && opi.user.username != current_user.username
-      cntnt.concat((link_to 
-image_tag('https://raw.githubusercontent.com/Stricks1/Twitter-redesign/feature/app/assets/images/retweet.png', class: 'edit-opinion', alt: 'copy_opinion'), retweet_path(opi)))
-      cntnt.html_safe
+  def get_all_followers(user = current_user)
+    user.followers
+  end
+
+  def get_all_followed_users(user = current_user)
+    user.followeds
+  end
+
+  def first_follower(user)
+    first_follower = user.followers.first
+    first_follower.nil? ? nil : first_follower
+  end
+
+  def follow_button(user)
+    if user.id == current_user.id
+      icon = content_tag(:i, nil, class: 'fas fa-plus-circle fa-2x hide-icon')
+      return capture do
+        icon
+      end
+    end
+    if Following.all.where(followerId: current_user.id, followedId: user.id).empty?
+      icon = content_tag(:i, nil, class: 'fas fa-plus-circle fa-2x')
+
+      capture do
+        link_to icon, followings_path(
+          following: {
+            followerId: current_user.id,
+            followedId: user.id,
+            route: opinions_path
+          }
+        ),
+                method: 'post',
+                class: 'follow-button',
+                id: 'follow-button'
+      end
+    else
+      # icon = content_tag(:p, "unfollow")
+      icon = content_tag(:i, nil, class: 'fas fa-minus-circle fa-2x')
+      capture do
+        link_to icon, following_path(
+          id: user.id,
+          route: opinions_path
+        ),
+                method: 'delete',
+                class: 'follow-button',
+                id: 'follow-button'
+      end
     end
   end
 
-  def btn_follow(usr)
-    link = link_to '+', follow_path(usr), class: 'textdec-none circle-link'
-    return link unless current_user.follows.include?(usr) || current_user == usr
-
-    nil
-  end
-
-  def user_copied_info(opi)
-    return nil unless opi.copied
-
-    edited = opi.created_at != opi.updated_at
-    info = edited ? 'Edited opinion copied from @' : 'Opinion copied from @'
-    info.concat(opi.copied.username)
-    link_to info, user_path(opi.copied)
-  end
-
-  def cover_photo(usr)
-    usr = fill_user_images(usr)
-    begin
-      image_tag(usr.cover_image, class: 'cover-img', alt: 'Cover_Image', onerror: 'imgErrorCover(this);')
-    rescue Sprockets::Rails::Helper::AssetNotFound
-      image_tag('https://raw.githubusercontent.com/Stricks1/Twitter-redesign/feature/app/assets/images/cover_default.jpg', 
-class: 'cover-img', alt: 'Cover_Image')
+  def settings_button(user)
+    icon = content_tag(:i, nil, class: 'fas fa-cog fa-2x')
+    if user.id == current_user.id
+      capture do
+        link_to icon, edit_user_path(user)
+      end
+    else
+      capture do
+        icon
+      end
     end
   end
 
-  def link_user_img(usr)
-    usr = fill_user_images(usr)
-    begin
-      link_to 
-image_tag(usr.photo, class: 'rounded-circle who-photo mx-2 align-self-center', alt: usr.username, onerror: 'imgErrorPhoto(this);'), user_path(usr), class: 'align-self-center'
-    rescue Sprockets::Rails::Helper::AssetNotFound
-      link_to 
-image_tag('https://raw.githubusercontent.com/Stricks1/Twitter-redesign/feature/app/assets/images/user_default.png', class: 'rounded-circle who-photo mx-2 align-self-center', alt: usr.username), user_path(usr), class: 'align-self-center'
+  def get_title(flag)
+    case flag
+    when 'followers'
+      'Followers'
+    when 'followed_users'
+      'Followed users'
     end
   end
 
-  def user_photo(opi)
-    opi.user = fill_user_images(opi.user)
-    begin
-      image_tag(opi.user.photo, class: 'timeline-photo', alt: 'User', onerror: 'imgErrorPhoto(this);')
-    rescue Sprockets::Rails::Helper::AssetNotFound
-      image_tag('https://raw.githubusercontent.com/Stricks1/Twitter-redesign/feature/app/assets/images/user_default.png', 
-class: 'timeline-photo', alt: 'User')
+  def display_errors(user)
+    return unless user.errors.full_messages.any?
+
+    content_tag :div, nil, class: 'd-flex flex-row' do
+      if user.errors.any?
+        concat content_tag :h2,
+                           "#{pluralize(user.errors.count, 'error')} prohibited this user from being saved:",
+                           class: 'errors'
+
+        content_tag (:ul), class: 'input_validations' do
+          user.errors.full_messages.each do |message|
+            concat content_tag :li, message, class: 'errors'
+          end.reduce(&:+)
+        end
+      end
     end
   end
 
-  def profile_photo(usr)
-    usr = fill_user_images(usr)
-    begin
-      image_tag(usr.photo, class: 'profile-right p-2', alt: usr.username, onerror: 'imgErrorPhoto(this);')
-    rescue Sprockets::Rails::Helper::AssetNotFound
-      image_tag('https://raw.githubusercontent.com/Stricks1/Twitter-redesign/feature/app/assets/images/user_default.png', 
-class: 'profile-right p-2', alt: usr.username)
+  def show_login_button(current_user)
+    content_tag :div, nil, class: 'd-flex flex-row' do
+      unless current_user
+        concat(content_tag(:p, 'go back to', class: 'mr-2'))
+        concat(link_to('Log In', login_url, class: 'btn btn-primary text-white'))
+      end
     end
   end
 
-  def link_follow(current, usr)
-    return link_to '+', follow_path(usr), 
-class: 'textdec-none circle-link' unless current.follows.include?(usr) || current == usr
-  end
+  def print_first_follower(user)
+    first_follower_of_user = first_follower(user)
 
-  def link_unfollow(usr)
-    return link_to '-', following_path(usr), method: :delete, 
-class: 'textdec-none circle-link' if current_user.follows.include?(usr)
-  end
-
-  def class_follower_following(opt)
-    opt ? "<div class='d-flex flex-column following'>" : "<div class='d-flex flex-column followed'>"
+    content_tag :div, nil, class: 'd-flex flex-row' do
+      if first_follower(user)
+        concat(content_tag(:p, 'Followed by '))
+        concat(link_to(first_follower_of_user.fullname, user_path(first_follower_of_user.id), class: 'text-primary'))
+      end
+    end
   end
 end

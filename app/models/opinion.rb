@@ -1,9 +1,7 @@
 class Opinion < ApplicationRecord
-  validates :text, presence: true
-  belongs_to :user
-  belongs_to :copied, class_name: 'User', foreign_key: 'copied_id', optional: true
+  belongs_to :user, foreign_key: :authorId
+  has_many :votes, class_name: 'Vote', foreign_key: :current_opinion_id
 
-  scope :ordered_opinion, -> { order(created_at: :desc) }
-  scope :include_user_copied, -> { includes(:user, :copied) }
-  scope :user_filter_Opinion, ->(user) { where(user: user) }
+  has_many :followed_users, class_name: 'Following', foreign_key: :followerId, dependent: :destroy
+  has_many :followeds, through: :followed_users
 end

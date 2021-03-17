@@ -1,30 +1,74 @@
 class FollowingsController < ApplicationController
-  before_action :set_user, only: %i[create destroy]
-  before_action :authenticate_user!
+  before_action :set_following, only: %i[show edit update destroy]
 
-  def create
-    @following = Following.new
-    if @following.build_saving(@user, current_user)
-      flash[:notice] = "Success following #{@user.username}"
-    else
-      flash[:alert] = "Error to follow #{@user.username}"
-    end
-    redirect_to request.referer
+  # GET /followings
+  # GET /followings.json
+  def index
+    login_required
+    @followings = Following.all
   end
 
+  # GET /followings/1
+  # GET /followings/1.json
+  def show; end
+
+  # GET /followings/new
+  def new
+    @following = Following.new
+  end
+
+  # POST /followings
+  # POST /followings.json
+  def create
+    @following = Following.new(following_params)
+    respond_to do |format|
+      if @following.save
+        format.html { redirect_to opinions_path, notice: 'Following was successfully created.' }
+        format.json { render :show, status: :created, location: @following }
+      else
+        format.html { render :new }
+        format.json { render json: @following.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /followings/1
+  # PATCH/PUT /followings/1.json
+  def update
+    respond_to do |format|
+      if @following.update(following_params)
+        format.html { redirect_to @following, notice: 'Following was successfully updated.' }
+        format.json { render :show, status: :ok, location: @following }
+      else
+        format.html { render :edit }
+        format.json { render json: @following.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /followings/1
+  # DELETE /followings/1.json
   def destroy
-    current_user.unfollow(@user)
-    flash[:notice] = "Unfollow #{@user.username}"
-    redirect_to request.referer
+    respond_to do |format|
+      if @following.destroy_all
+        format.html { redirect_to opinions_path, notice: 'Following was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { render :destroy }
+        format.json { render json: @following.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private
 
-  def set_user
-    @user = User.find(params[:id])
+  # Use callbacks to share common setup or constraints between actions.
+  def set_following
+    @following = Following.where(followerId: current_user.id, followedId: params[:id])
   end
 
+  # Only allow a list of trusted parameters through.
   def following_params
-    params.fetch(:following, {})
+    params.require(:following).permit(:followerId, :followedId)
   end
 end

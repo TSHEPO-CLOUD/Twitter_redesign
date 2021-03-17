@@ -1,23 +1,26 @@
 require 'rails_helper'
 
 RSpec.describe Following, type: :model do
-  let(:user) { build(:user) }
-  let(:user2) { build(:user) }
+  let(:test_follower) { User.create(username: 'ramin', fullname: 'Ramin Mammadzada') }
+  let(:test_followed_user) { User.create(username: 'nimoto', fullname: 'Nimoto Mammadzada') }
+  let(:test_following) { described_class.new(followerId: test_follower.id, followedId: test_followed_user.id) }
 
-  context 'Model methods verification' do
-    it 'Create a new follow between users' do
-      @following = Following.new
-      @following.build_saving(user2, user)
-      expect(user.follows).to include(user2)
-      expect(user2.followds).to include(user)
+  describe 'validations' do
+    it 'should be valid, because both users actually exist' do
+      expect(test_following).to be_valid
     end
+    it "should be invalid, because the follower doesn't exist" do
+      test_following.followedId = -1
+      expect(test_following).to be_invalid
+    end
+    it "should be invalid, because the followed doesn't exist" do
+      test_following.followerId = -1
+      expect(test_following).to be_invalid
+    end
+  end
 
-    it 'Fails to create a follow missing one user' do
-      @following = Following.new
-      @following.build_saving(user2, nil)
-      expect(@following.errors.full_messages).to include("Follower can't be blank")
-      @following.build_saving(nil, user)
-      expect(@following.errors.full_messages).to include("Followed can't be blank")
-    end
+  describe 'relations' do
+    it { is_expected.to belong_to(:follower) }
+    it { is_expected.to belong_to(:followed) }
   end
 end

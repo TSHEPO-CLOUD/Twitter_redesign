@@ -3,11 +3,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.2'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+# Bundle edge Rails instead: gem 'rails', github:heroku loginheroku loginheroku login 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
 # Use sqlite3 as the database for Active Record
-# gem 'pg', '~> 0.18.4'
-gem 'sqlite3', '~> 1.4'
+gem 'pg', '~> 0.18.4'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
@@ -53,7 +52,6 @@ group :test do
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'bigdecimal', '1.3.5'
   gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
-  # gem 'rspec-rails', '~> 3.10.2'
   gem 'rspec-rails', '~> 5.0'
   gem 'shoulda-matchers', '~> 3.0.0'
   gem 'webdrivers'

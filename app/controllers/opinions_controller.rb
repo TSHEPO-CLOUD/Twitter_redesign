@@ -1,74 +1,107 @@
 class OpinionsController < ApplicationController
-  before_action :set_opinion, only: %i[show edit update destroy retweet]
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :set_opinion, only: %i[show edit update destroy]
+  # GET /opinions
+  # GET /opinions.json
 
   def index
-    if current_user
-      @opinions = current_user.followeds_opinions
-      @users = current_user.who_follow
-    else
-      @opinions = Opinion.ordered_opinion.include_user_copied
-      @users = User.ordered_users
-    end
+    login_required
     @opinion = Opinion.new
+    timeline_opinions
   end
 
-  def show; end
-
+  # GET /opinions/new
   def new
     @opinion = Opinion.new
   end
 
-  def edit
-    redirect_to opinions_path unless current_user == @opinion.user
-  end
+  # GET /opinions/1/edit
+  def edit; end
 
+  # POST /opinions
+  # POST /opinions.json
   def create
-    @opinion = current_user.opinions.build(opinion_params)
-    @opinions = current_user.followeds_opinions
-    @users = current_user.who_follow
+    @opinion = Opinion.new(opinion_params)
+    @opinion.authorId = current_user.id
 
     respond_to do |format|
       if @opinion.save
         format.html { redirect_to opinions_path, notice: 'Opinion was successfully created.' }
+        format.json { render :show, status: :created, location: @opinion }
       else
-        format.html { render :index }
+        format.html { render :new }
+        format.json { render json: @opinion.errors, status: :unprocessable_entity }
       end
     end
   end
 
+  # PATCH/PUT /opinions/1
+  # PATCH/PUT /opinions/1.json
   def update
     respond_to do |format|
       if @opinion.update(opinion_params)
         format.html { redirect_to opinions_path, notice: 'Opinion was successfully updated.' }
+        format.json { render :show, status: :ok, location: @opinion }
       else
         format.html { render :edit }
+        format.json { render json: @opinion.errors, status: :unprocessable_entity }
       end
     end
   end
 
+  # DELETE /opinions/1
+  # DELETE /opinions/1.json
   def destroy
-    @opinion.destroy
     respond_to do |format|
-      format.html { redirect_to request.referer, notice: 'Opinion was successfully deleted.' }
+      if @opinion.destroy
+        format.html { redirect_to opinions_url, notice: 'Opinion was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { render :destroy }
+        format.json { render json: @opinion.errors, status: :unprocessable_entity }
+      end
     end
   end
 
-  def retweet
-    current_user.copy_opi(@opinion)
-    redirect_to opinions_path
+  def update_vote
+    vote_direction = params[:vote_direction]
+    route = params[:route]
+    current_opinion = Opinion.find_by(id: params[:opinion])
+    current_voter = User.find_by(id: params[:voter])
+
+    case vote_direction
+    when 'up'
+      current_opinion.votes.create(voter_id: current_voter.id,
+                                   vote_type: 'up')
+    when 'down'
+      current_opinion.votes.create(voter_id: current_voter.id,
+                                   vote_type: 'down')
+    end
+
+    respond_to do |format|
+      case route
+      when 'opinions'
+        format.html { redirect_to opinions_url, notice: 'The vote is updated' }
+        format.json { head :no_content }
+      when 'user_profile'
+        format.html { redirect_to user_path(current_opinion.user.id), notice: 'The vote is updated' }
+        format.json { head :no_content }
+      end
+    end
   end
 
   private
 
-  def set_opinion
-    @opinion = Opinion.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    flash[:alert] = 'Nonexistent post id'
-    redirect_to opinions_path
+  def timeline_opinions
+    @timeline_opinions ||= Opinion.preload(:votes).order(created_at: :desc)
   end
 
+  # Use callbacks to share common setup or constraints between actions.
+  def set_opinion
+    @opinion = Opinion.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
   def opinion_params
-    params.require(:opinion).permit(:text)
+    params.require(:opinion).permit(:authorId, :text)
   end
 end

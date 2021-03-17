@@ -1,30 +1,19 @@
 class SessionsController < ApplicationController
-  before_action :set_user, only: %i[create]
-
   def new; end
 
   def create
-    if @user
-      session[:user_id] = @user.id
-      session[:username] = @user.username
-      redirect_to root_url, notice: 'Logged in!'
+    user = User.find_by_username(params[:username])
+    if user
+      session[:user_id] = user.id
+      redirect_to root_url, notice: 'You are successfully logged in!'
     else
-      flash.now[:alert] = 'Username invalid'
+      flash.now[:alert] = 'You username is not valid or cannot be blank!'
       render 'new'
     end
   end
 
   def destroy
     session[:user_id] = nil
-    session[:username] = nil
-    redirect_to root_url, notice: 'Logged out!'
-  end
-
-  private
-
-  def set_user
-    @user = User.find_by_username(params[:username])
-  rescue ActiveRecord::RecordNotFound
-    @user = nil
+    redirect_to root_url, notice: 'You are logged out!'
   end
 end

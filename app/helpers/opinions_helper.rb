@@ -1,121 +1,40 @@
-# frozen_string_literal: true
 module OpinionsHelper
-  def right_title
-    current_user ? 'WHO TO FOLLOW' : 'WHO IS HERE'
+  def get_opinion_count(opinion)
+    total_up_votes = opinion.votes.where(vote_type: 'up').count
+    total_down_votes = opinion.votes.where(vote_type: 'down').count
+    total_up_votes - total_down_votes
   end
 
-  def center_title
-    current_user ? 'Followeds Opinions' : 'All Opinions'
-  end
+  def show_vote_buttons(opinion, opinion_owner_user)
+    route = opinion_owner_user.nil? ? 'opinions' : 'user_profile'
 
-  def linked_unlinked_comment(opi)
-    opi.user = fill_user_images(opi.user)
-    if current_user
-      begin
-        link_to 
-image_tag(opi.user.photo, class: 'timeline-photo', alt: opi.user.username, onerror: 'imgErrorPhoto(this);'), user_path(opi.user)
-      rescue Sprockets::Rails::Helper::AssetNotFound
-        link_to 
-image_tag('https://raw.githubusercontent.com/Stricks1/Twitter-redesign/feature/app/assets/images/user_default.png', class: 'timeline-photo', alt: opi.user.username), user_path(opi.user)
+    if current_user.id != opinion.user.id
+      content_tag :div, nil, class: 'vote_container flex-shrink-1 d-flex flex-column' do
+        concat(link_to('<h4><i class="fas fa-arrow-up a-2x"></i></h4>'.html_safe,
+                       vote_path({ opinion: opinion, voter: current_user, vote_direction: 'up', route: route }),
+                       class: 'text-dark'))
+        concat(content_tag(:h4, get_opinion_count(opinion), class: 'text-dark'))
+        concat(link_to('<h4><i class="fas fa-arrow-down a-2x"></i></h4>'.html_safe,
+                       vote_path({ opinion: opinion, voter: current_user, vote_direction: 'down', route: route }),
+                       class: 'text-dark'))
       end
     else
-      begin
-        image_tag(opi.user.photo, class: 'timeline-photo', alt: opi.user.username, onerror: 'imgErrorPhoto(this);')
-      rescue Sprockets::Rails::Helper::AssetNotFound
-        image_tag('https://raw.githubusercontent.com/Stricks1/Twitter-redesign/feature/app/assets/images/user_default.png', 
-class: 'timeline-photo', alt: opi.user.username)
+
+      content_tag :div, nil, class: 'vote_container flex-shrink-1 d-flex flex-column' do
+        concat('<h4><i class="fas fa-arrow-up a-2x text-black-30"></i></h4>'.html_safe)
+        concat(content_tag(:h4, get_opinion_count(opinion), class: 'text-dark'))
+        concat '<h4><i class="fas fa-arrow-down a-2x text-black-30"></i></h4>'.html_safe
       end
+
     end
   end
 
-  def linked_unlinked_who(usr)
-    usr = fill_user_images(usr)
-    if current_user
-      begin
-        link_to 
-image_tag(usr.photo, class: 'rounded-circle who-photo mx-2 align-self-center', alt: usr.username, onerror: 'imgErrorPhoto(this);'), user_path(usr), class: 'align-self-center'
-      rescue Sprockets::Rails::Helper::AssetNotFound
-        link_to 
-image_tag('https://raw.githubusercontent.com/Stricks1/Twitter-redesign/feature/app/assets/images/user_default.png', class: 'rounded-circle who-photo mx-2 align-self-center', alt: usr.username), user_path(usr), class: 'align-self-center'
-      end
-    else
-      begin
-        image_tag(usr.photo, class: 'rounded-circle who-photo mx-2 align-self-center', alt: usr.username, 
-onerror: 'imgErrorPhoto(this);')
-      rescue Sprockets::Rails::Helper::AssetNotFound
-        image_tag('https://raw.githubusercontent.com/Stricks1/Twitter-redesign/feature/app/assets/images/user_default.png', 
-class: 'rounded-circle who-photo mx-2 align-self-center', alt: usr.username)
+  def show_edit_destroy_opinion_buttons(opinion)
+    content_tag :div, nil, class: 'd-flex justify-content-end flex-row' do
+      if current_user.id == opinion.user.id
+        concat(link_to('<p class="mr-2">Edit</p>'.html_safe, edit_opinion_path(opinion)))
+        concat(link_to('<p>Destroy</p>'.html_safe, opinion, method: :delete, data: { confirm: 'Are you sure?' }))
       end
     end
-  end
-
-  def edit_destroy_retweet(opi)
-    cntnt = ''
-    if current_user && opi.user.username == current_user.username
-      cntnt.concat((link_to 
-image_tag('https://raw.githubusercontent.com/Stricks1/Twitter-redesign/b3ee28c00f9504f9995a544ad14f2440b83f40a0/app/assets/images/pencil.svg', class: 'edit-opinion', alt: 'edit'), edit_opinion_path(opi)))
-      cntnt.concat((link_to 'x', opi, method: :delete, data: { confirm: 'Are you sure?' }, class: 'textdec-none ml-1'))
-      cntnt.html_safe
-    elsif current_user && opi.user.username != current_user.username
-      cntnt.concat((link_to 
-image_tag('https://raw.githubusercontent.com/Stricks1/Twitter-redesign/feature/app/assets/images/retweet.png', class: 'edit-opinion', alt: 'copy_opinion'), retweet_path(opi)))
-      cntnt.html_safe
-    end
-  end
-
-  def copied_info(opi)
-    return nil unless opi.copied
-
-    edited = opi.created_at != opi.updated_at
-    info = edited ? 'Edited opinion copied from @' : 'Opinion copied from @'
-    info.concat(opi.copied.username)
-    current_user ? (link_to info, user_path(opi.copied)) : info
-  end
-
-  def op_btn_follow(usr)
-    return nil unless current_user
-
-    link_to '+', follow_path(usr), class: 'textdec-none circle-link'
-  end
-
-  def form_edit_info(opinion)
-    return unless current_user == opinion.user
-
-    cntnt = "<div class='bg-white w-75 border rounded-border p-3 my-4 color-light-grey'>"
-    cntnt.concat("<p class='font-weight-bold'>CORRECT YOUR OPINION</p>")
-    cntnt.concat(form_with(model: opinion, local: true, html: { method: 'patch' }))
-    form_with(model: opinion, local: true) do |form|
-      cntnt.concat((form.text_area :text, class: 'form-text', placeholder: 'Give your opinion...', autofocus: true))
-      opinion.errors.messages[:text].each do |message|
-        cntnt.concat("<div class='error-sm'>")
-        cntnt.concat(message)
-        cntnt.concat('</div>')
-      end
-      cntnt.concat("<div class='actions mt-4'>")
-      cntnt.concat((form.submit 'Edit Opinion', class: 'form-btn'))
-      cntnt.concat('</div>')
-    end
-    cntnt.concat('</div>')
-    cntnt.html_safe
-  end
-
-  def form_opinion(opinion)
-    return unless current_user
-
-    cntnt = "<div class='bg-white w-75 border rounded-border p-3 my-4 color-light-grey'><p class='font-weight-bold'>WRITE ABOUT A MOVIE</p>"
-    cntnt.concat(form_with(model: opinion, local: true))
-    form_with(model: opinion, local: true) do |form|
-      cntnt.concat((form.text_area :text, class: 'form-text', placeholder: 'Give your opinion...', autofocus: true))
-      opinion.errors.messages[:text].each do |message|
-        cntnt.concat("<div class='error-sm'>")
-        cntnt.concat(message)
-        cntnt.concat('</div>')
-      end
-      cntnt.concat("<div class='actions mt-4'>")
-      cntnt.concat((form.submit 'Send Opinion', class: 'form-btn'))
-      cntnt.concat('</div>')
-    end
-    cntnt.concat('</div>')
-    cntnt.html_safe
   end
 end

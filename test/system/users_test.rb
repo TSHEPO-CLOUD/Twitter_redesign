@@ -14,8 +14,8 @@ class UsersTest < ApplicationSystemTestCase
     visit users_url
     click_on 'New User'
 
-    fill_in 'Cover image', with: @user.cover_image
-    fill_in 'Full name', with: @user.full_name
+    fill_in 'Coverimage', with: @user.coverImage
+    fill_in 'Fullname', with: @user.fullname
     fill_in 'Photo', with: @user.photo
     fill_in 'Username', with: @user.username
     click_on 'Create User'
@@ -28,8 +28,8 @@ class UsersTest < ApplicationSystemTestCase
     visit users_url
     click_on 'Edit', match: :first
 
-    fill_in 'Cover image', with: @user.cover_image
-    fill_in 'Full name', with: @user.full_name
+    fill_in 'Coverimage', with: @user.coverImage
+    fill_in 'Fullname', with: @user.fullname
     fill_in 'Photo', with: @user.photo
     fill_in 'Username', with: @user.username
     click_on 'Update User'

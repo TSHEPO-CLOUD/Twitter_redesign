@@ -69,14 +69,8 @@ To navigate on the app you can enter http://localhost:3000/ on your browser, set
 The tests were created with RSpec, to run the tests you should open the app folder on console and run 
  
 ```
-$ rspec
+$   rspec --format documentation
 ```
-
-It will run the 3 test files:
-
-- spec/feature/features_spec.rb
-- spec/models/following_spec.rb
-- spec/models/user_spec.rb
 
 ## Authors
 

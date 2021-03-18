@@ -3946,3 +3946,458 @@ app/helpers/users_helper.rb:2:in `gel_all_unfollowed_users'
 app/views/opinions/_right_sidebar.html.erb:8
 app/views/opinions/index.html.erb:17
 Started POST "/__web_console/repl_sessions/97df59907517161d16c07c39978fc042/trace" for 127.0.0.1 at 2021-03-17 20:33:39 +0200
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5168794849566389475)[0m
+  [1m[35m (17.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (33.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(5168794849566389475)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2021-03-18 10:58:08 +0200
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by OpinionsController#index as HTML
+Redirected to http://localhost:3000/login
+Completed 302 Found in 22ms (ActiveRecord: 3.8ms | Allocations: 5853)
+
+
+Started GET "/login" for 127.0.0.1 at 2021-03-18 10:58:08 +0200
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 25.6ms | Allocations: 639)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 1148ms (Views: 1038.8ms | ActiveRecord: 0.0ms | Allocations: 20605)
+
+
+Started GET "/signup" for 127.0.0.1 at 2021-03-18 10:58:18 +0200
+Processing by UsersController#new as HTML
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_form.html.erb (Duration: 204.7ms | Allocations: 3289)
+  Rendered users/new.html.erb within layouts/application (Duration: 418.9ms | Allocations: 3594)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 457ms (Views: 434.6ms | ActiveRecord: 3.8ms | Allocations: 24516)
+
+
+Started POST "/users" for 127.0.0.1 at 2021-03-18 10:58:38 +0200
+Processing by UsersController#create as HTML
+  Parameters: {"authenticity_token"=>"vadgD5zSJ9NuVTgqlSWqwBHI3/8MZOSgnHO82UlLCzbMQWXAkMSZ2uvr+rjc1I61qRilXUIViwf7p9cl8PgWMw==", "user"=>{"username"=>"david", "fullname"=>"molefe", "photo"=>#<ActionDispatch::Http::UploadedFile:0x00007f80cc903248 @tempfile=#<Tempfile:/tmp/RackMultipart20210318-3713-1j9h973.jpg>, @original_filename="2020-11-05-182603.jpg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"user[photo]\"; filename=\"2020-11-05-182603.jpg\"\r\nContent-Type: image/jpeg\r\n">}, "commit"=>"Create User"}
+[paperclip] Trying to link /tmp/RackMultipart20210318-3713-1j9h973.jpg to /tmp/3d7a7f6bcb8632dbac8f0a918ef976fa20210318-3713-nescui.jpg
+[paperclip] Trying to link /tmp/3d7a7f6bcb8632dbac8f0a918ef976fa20210318-3713-nescui.jpg to /tmp/3d7a7f6bcb8632dbac8f0a918ef976fa20210318-3713-1g01ssi.jpg
+Command :: file -b --mime '/tmp/3d7a7f6bcb8632dbac8f0a918ef976fa20210318-3713-1g01ssi.jpg'
+Command :: identify -format '%wx%h,%[exif:orientation]' '/tmp/3d7a7f6bcb8632dbac8f0a918ef976fa20210318-3713-nescui.jpg[0]' 2>/dev/null
+Command :: identify -format %m '/tmp/3d7a7f6bcb8632dbac8f0a918ef976fa20210318-3713-nescui.jpg[0]'
+Command :: convert '/tmp/3d7a7f6bcb8632dbac8f0a918ef976fa20210318-3713-nescui.jpg[0]' -auto-orient -resize "300x300>" '/tmp/c5c8402f0f89b99a36982b82d489122020210318-3713-ur68lc'
+[paperclip] Trying to link /tmp/c5c8402f0f89b99a36982b82d489122020210318-3713-ur68lc to /tmp/e9538e6565b158633fdc6eafb11d068e20210318-3713-13fgfej
+Command :: identify -format '%wx%h,%[exif:orientation]' '/tmp/3d7a7f6bcb8632dbac8f0a918ef976fa20210318-3713-nescui.jpg[0]' 2>/dev/null
+Command :: identify -format %m '/tmp/3d7a7f6bcb8632dbac8f0a918ef976fa20210318-3713-nescui.jpg[0]'
+Command :: convert '/tmp/3d7a7f6bcb8632dbac8f0a918ef976fa20210318-3713-nescui.jpg[0]' -auto-orient -resize "100x100>" '/tmp/c5c8402f0f89b99a36982b82d489122020210318-3713-vgtk4i'
+[paperclip] Trying to link /tmp/c5c8402f0f89b99a36982b82d489122020210318-3713-vgtk4i to /tmp/6264978dca584b2ca2c810957f7085b620210318-3713-14f25lb
+[paperclip] Trying to link /tmp/3d7a7f6bcb8632dbac8f0a918ef976fa20210318-3713-nescui.jpg to /tmp/3d7a7f6bcb8632dbac8f0a918ef976fa20210318-3713-1lirsi0.jpg
+Command :: file -b --mime '/tmp/3d7a7f6bcb8632dbac8f0a918ef976fa20210318-3713-1lirsi0.jpg'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:36:in `block in create'
+  [1m[36mUser Create (273.4ms)[0m  [1m[32mINSERT INTO "users" ("username", "fullname", "created_at", "updated_at", "photo_file_name", "photo_content_type", "photo_file_size", "photo_updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["username", "david"], ["fullname", "molefe"], ["created_at", "2021-03-18 08:58:39.617781"], ["updated_at", "2021-03-18 08:58:39.617781"], ["photo_file_name", "2020-11-05-182603.jpg"], ["photo_content_type", "image/jpeg"], ["photo_file_size", 57295], ["photo_updated_at", "2021-03-18 08:58:38.482962"]]
+  ↳ app/controllers/users_controller.rb:36:in `block in create'
+  [1m[35m (76.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:36:in `block in create'
+Redirected to http://localhost:3000/users/1
+Completed 302 Found in 7755ms (ActiveRecord: 350.3ms | Allocations: 47067)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2021-03-18 10:58:46 +0200
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:79:in `set_user'
+  Rendering users/show.html.erb within layouts/application
+  Rendered users/_cover_image.html.erb (Duration: 2.2ms | Allocations: 473)
+  Rendered users/_navbar.html.erb (Duration: 1.1ms | Allocations: 317)
+  [1m[36mOpinion Load (11.7ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."authorId" = $1 ORDER BY "opinions"."created_at" DESC[0m  [["authorId", 1]]
+  ↳ app/views/opinions/_opinions_list.html.erb:1
+  Rendered opinions/_opinions_list.html.erb (Duration: 15.0ms | Allocations: 963)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[35m (22.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "opinions" WHERE "opinions"."authorId" = $1[0m  [["authorId", 1]]
+  ↳ app/views/users/_right_sidebar.html.erb:16
+  [1m[35m (14.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followedId" WHERE "followings"."followerId" = $1[0m  [["followerId", 1]]
+  ↳ app/views/users/_right_sidebar.html.erb:20
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followerId" WHERE "followings"."followedId" = $1[0m  [["followedId", 1]]
+  ↳ app/views/users/_right_sidebar.html.erb:24
+  Rendered users/_user_list.html.erb (Duration: 0.7ms | Allocations: 303)
+  Rendered users/_right_sidebar.html.erb (Duration: 54.1ms | Allocations: 8208)
+  Rendered users/show.html.erb within layouts/application (Duration: 96.3ms | Allocations: 10942)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followedId" WHERE "followings"."followerId" = $1[0m  [["followerId", 1]]
+  ↳ app/views/layouts/_left_sidebar.html.erb:8
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followerId" WHERE "followings"."followedId" = $1[0m  [["followedId", 1]]
+  ↳ app/views/layouts/_left_sidebar.html.erb:12
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  Rendered layouts/_left_sidebar.html.erb (Duration: 39.1ms | Allocations: 6664)
+  Rendered layouts/_top_navbar.html.erb (Duration: 21.3ms | Allocations: 82)
+Completed 200 OK in 172ms (Views: 114.2ms | ActiveRecord: 51.4ms | Allocations: 29121)
+
+
+Started GET "/images/original/missing.png" for 127.0.0.1 at 2021-03-18 10:58:46 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/images/original/missing.png"):
+  
+actionpack (6.0.3.4) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+web-console (4.1.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.1.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.4) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.4) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+rack-livereload (0.3.17) lib/rack/livereload.rb:23:in `_call'
+rack-livereload (0.3.17) lib/rack/livereload.rb:14:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+webpacker (4.3.0) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (6.0.3.4) lib/rails/engine.rb:527:in `call'
+puma (4.3.6) lib/puma/configuration.rb:228:in `call'
+puma (4.3.6) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.6) lib/puma/server.rb:472:in `process_client'
+puma (4.3.6) lib/puma/server.rb:328:in `block in run'
+puma (4.3.6) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/users/1" for 127.0.0.1 at 2021-03-18 10:58:54 +0200
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:79:in `set_user'
+  Rendering users/show.html.erb within layouts/application
+  Rendered users/_cover_image.html.erb (Duration: 1.0ms | Allocations: 336)
+  Rendered users/_navbar.html.erb (Duration: 0.7ms | Allocations: 167)
+  [1m[36mOpinion Load (0.3ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" WHERE "opinions"."authorId" = $1 ORDER BY "opinions"."created_at" DESC[0m  [["authorId", 1]]
+  ↳ app/views/opinions/_opinions_list.html.erb:1
+  Rendered opinions/_opinions_list.html.erb (Duration: 2.0ms | Allocations: 718)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "opinions" WHERE "opinions"."authorId" = $1[0m  [["authorId", 1]]
+  ↳ app/views/users/_right_sidebar.html.erb:16
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followedId" WHERE "followings"."followerId" = $1[0m  [["followerId", 1]]
+  ↳ app/views/users/_right_sidebar.html.erb:20
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followerId" WHERE "followings"."followedId" = $1[0m  [["followedId", 1]]
+  ↳ app/views/users/_right_sidebar.html.erb:24
+  Rendered users/_user_list.html.erb (Duration: 0.3ms | Allocations: 98)
+  Rendered users/_right_sidebar.html.erb (Duration: 16.7ms | Allocations: 4685)
+  Rendered users/show.html.erb within layouts/application (Duration: 21.8ms | Allocations: 6159)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followedId" WHERE "followings"."followerId" = $1[0m  [["followerId", 1]]
+  ↳ app/views/layouts/_left_sidebar.html.erb:8
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[35mCACHE  (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followerId" WHERE "followings"."followedId" = $1[0m  [["followedId", 1]]
+  ↳ app/views/layouts/_left_sidebar.html.erb:12
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  Rendered layouts/_left_sidebar.html.erb (Duration: 12.7ms | Allocations: 6447)
+  Rendered layouts/_top_navbar.html.erb (Duration: 0.0ms | Allocations: 5)
+Completed 200 OK in 50ms (Views: 42.9ms | ActiveRecord: 3.8ms | Allocations: 22339)
+
+
+Started GET "/images/original/missing.png" for 127.0.0.1 at 2021-03-18 10:58:54 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/images/original/missing.png"):
+  
+actionpack (6.0.3.4) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+web-console (4.1.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.1.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.4) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.4) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+rack-livereload (0.3.17) lib/rack/livereload.rb:23:in `_call'
+rack-livereload (0.3.17) lib/rack/livereload.rb:14:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+webpacker (4.3.0) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (6.0.3.4) lib/rails/engine.rb:527:in `call'
+puma (4.3.6) lib/puma/configuration.rb:228:in `call'
+puma (4.3.6) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.6) lib/puma/server.rb:472:in `process_client'
+puma (4.3.6) lib/puma/server.rb:328:in `block in run'
+puma (4.3.6) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/opinions" for 127.0.0.1 at 2021-03-18 10:58:55 +0200
+Processing by OpinionsController#index as HTML
+  Rendering opinions/index.html.erb within layouts/application
+  Rendered opinions/_navbar.html.erb (Duration: 10.3ms | Allocations: 138)
+  Rendered opinions/_form.html.erb (Duration: 2.1ms | Allocations: 456)
+  [1m[36mOpinion Load (0.4ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" ORDER BY "opinions"."created_at" DESC[0m
+  ↳ app/views/opinions/_opinions_list.html.erb:1
+  Rendered opinions/_opinions_list.html.erb (Duration: 2.7ms | Allocations: 878)
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != $1 ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/helpers/users_helper.rb:4:in `gel_all_unfollowed_users'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followedId" WHERE "followings"."followerId" = $1[0m  [["followerId", 1]]
+  ↳ app/helpers/users_helper.rb:4:in `gel_all_unfollowed_users'
+  Rendered opinions/_right_sidebar.html.erb (Duration: 20.4ms | Allocations: 3272)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 142.8ms | Allocations: 5648)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followedId" WHERE "followings"."followerId" = $1[0m  [["followerId", 1]]
+  ↳ app/views/layouts/_left_sidebar.html.erb:8
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followerId" WHERE "followings"."followedId" = $1[0m  [["followedId", 1]]
+  ↳ app/views/layouts/_left_sidebar.html.erb:12
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  Rendered layouts/_left_sidebar.html.erb (Duration: 26.9ms | Allocations: 6591)
+  Rendered layouts/_top_navbar.html.erb (Duration: 0.0ms | Allocations: 5)
+Completed 200 OK in 184ms (Views: 178.0ms | ActiveRecord: 4.8ms | Allocations: 21780)
+
+
+Started GET "/images/original/missing.png" for 127.0.0.1 at 2021-03-18 10:58:55 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/images/original/missing.png"):
+  
+actionpack (6.0.3.4) lib/action_dispatch/middleware/debug_exceptions.rb:36:in `call'
+web-console (4.1.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.1.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.4) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.4) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+rack-livereload (0.3.17) lib/rack/livereload.rb:23:in `_call'
+rack-livereload (0.3.17) lib/rack/livereload.rb:14:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+webpacker (4.3.0) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (6.0.3.4) lib/rails/engine.rb:527:in `call'
+puma (4.3.6) lib/puma/configuration.rb:228:in `call'
+puma (4.3.6) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.6) lib/puma/server.rb:472:in `process_client'
+puma (4.3.6) lib/puma/server.rb:328:in `block in run'
+puma (4.3.6) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/logout" for 127.0.0.1 at 2021-03-18 10:58:57 +0200
+Processing by SessionsController#destroy as HTML
+Redirected to http://localhost:3000/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms | Allocations: 318)
+
+
+Started GET "/" for 127.0.0.1 at 2021-03-18 10:58:57 +0200
+Processing by OpinionsController#index as HTML
+Redirected to http://localhost:3000/login
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms | Allocations: 392)
+
+
+Started GET "/login" for 127.0.0.1 at 2021-03-18 10:58:57 +0200
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 0.5ms | Allocations: 271)
+[Webpacker] Everything's up-to-date. Nothing to do
+Completed 200 OK in 11ms (Views: 10.0ms | ActiveRecord: 0.0ms | Allocations: 8487)
+
+
+Started POST "/sessions" for 127.0.0.1 at 2021-03-18 10:59:11 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"nd6cEMGSpCRMUJgPBJEStsI2vKNPqslhAuZOJeFaYqOpqqWMuQRztrXw1C+4kK5pfKmcCEMCHHJ9YnKkFDy8fw==", "username"=>"david", "commit"=>"login"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "david"], ["LIMIT", 1]]
+  ↳ app/controllers/sessions_controller.rb:5:in `create'
+Redirected to http://localhost:3000/
+Completed 302 Found in 5ms (ActiveRecord: 0.4ms | Allocations: 1163)
+
+
+Started GET "/" for 127.0.0.1 at 2021-03-18 10:59:11 +0200
+Processing by OpinionsController#index as HTML
+  Rendering opinions/index.html.erb within layouts/application
+  Rendered opinions/_navbar.html.erb (Duration: 0.3ms | Allocations: 37)
+  Rendered opinions/_form.html.erb (Duration: 1.1ms | Allocations: 221)
+  [1m[36mOpinion Load (1.5ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" ORDER BY "opinions"."created_at" DESC[0m
+  ↳ app/views/opinions/_opinions_list.html.erb:1
+  Rendered opinions/_opinions_list.html.erb (Duration: 4.6ms | Allocations: 665)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != $1 ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/helpers/users_helper.rb:4:in `gel_all_unfollowed_users'
+  [1m[36mUser Load (1.3ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followedId" WHERE "followings"."followerId" = $1[0m  [["followerId", 1]]
+  ↳ app/helpers/users_helper.rb:4:in `gel_all_unfollowed_users'
+  Rendered opinions/_right_sidebar.html.erb (Duration: 13.0ms | Allocations: 2636)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 21.1ms | Allocations: 3801)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followedId" WHERE "followings"."followerId" = $1[0m  [["followerId", 1]]
+  ↳ app/views/layouts/_left_sidebar.html.erb:8
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followerId" WHERE "followings"."followedId" = $1[0m  [["followedId", 1]]
+  ↳ app/views/layouts/_left_sidebar.html.erb:12
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  Rendered layouts/_left_sidebar.html.erb (Duration: 16.6ms | Allocations: 6583)
+  Rendered layouts/_top_navbar.html.erb (Duration: 0.1ms | Allocations: 5)
+Completed 200 OK in 50ms (Views: 42.6ms | ActiveRecord: 4.7ms | Allocations: 19170)
+
+
+Started POST "/opinions" for 127.0.0.1 at 2021-03-18 10:59:24 +0200
+Processing by OpinionsController#create as HTML
+  Parameters: {"authenticity_token"=>"gk1HumjjE4+UhoW9Md1IRZAFXgeNtgZPY8lKzLJyRjO1wviFOXx8gqx5mqZLlYsJZ1n7WRtI1pXMCQcX2Bcwtg==", "opinion"=>{"text"=>"we are ruby"}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:3:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/opinions_controller.rb:27:in `block in create'
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/opinions_controller.rb:27:in `block in create'
+  [1m[36mOpinion Create (30.9ms)[0m  [1m[32mINSERT INTO "opinions" ("authorId", "text", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["authorId", 1], ["text", "we are ruby"], ["created_at", "2021-03-18 08:59:24.403336"], ["updated_at", "2021-03-18 08:59:24.403336"]]
+  ↳ app/controllers/opinions_controller.rb:27:in `block in create'
+  [1m[35m (17.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/opinions_controller.rb:27:in `block in create'
+Redirected to http://localhost:3000/opinions
+Completed 302 Found in 77ms (ActiveRecord: 49.7ms | Allocations: 8366)
+
+
+Started GET "/opinions" for 127.0.0.1 at 2021-03-18 10:59:24 +0200
+Processing by OpinionsController#index as HTML
+  Rendering opinions/index.html.erb within layouts/application
+  Rendered opinions/_navbar.html.erb (Duration: 0.4ms | Allocations: 37)
+  Rendered opinions/_form.html.erb (Duration: 2.1ms | Allocations: 219)
+  [1m[36mOpinion Load (0.7ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" ORDER BY "opinions"."created_at" DESC[0m
+  ↳ app/views/opinions/_opinions_list.html.erb:1
+  [1m[36mVote Load (30.7ms)[0m  [1m[34mSELECT "votes".* FROM "votes" WHERE "votes"."current_opinion_id" = $1[0m  [["current_opinion_id", 1]]
+  ↳ app/views/opinions/_opinions_list.html.erb:1
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/opinions_helper.rb:11:in `show_vote_buttons'
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "votes" WHERE "votes"."current_opinion_id" = $1 AND "votes"."vote_type" = $2[0m  [["current_opinion_id", 1], ["vote_type", "up"]]
+  ↳ app/helpers/opinions_helper.rb:3:in `get_opinion_count'
+  [1m[35m (1.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "votes" WHERE "votes"."current_opinion_id" = $1 AND "votes"."vote_type" = $2[0m  [["current_opinion_id", 1], ["vote_type", "down"]]
+  ↳ app/helpers/opinions_helper.rb:4:in `get_opinion_count'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  Rendered opinions/_opinions_list.html.erb (Duration: 56.4ms | Allocations: 8202)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != $1 ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/helpers/users_helper.rb:4:in `gel_all_unfollowed_users'
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followedId" WHERE "followings"."followerId" = $1[0m  [["followerId", 1]]
+  ↳ app/helpers/users_helper.rb:4:in `gel_all_unfollowed_users'
+  Rendered opinions/_right_sidebar.html.erb (Duration: 11.2ms | Allocations: 2525)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 71.8ms | Allocations: 11225)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followedId" WHERE "followings"."followerId" = $1[0m  [["followerId", 1]]
+  ↳ app/views/layouts/_left_sidebar.html.erb:8
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followerId" WHERE "followings"."followedId" = $1[0m  [["followedId", 1]]
+  ↳ app/views/layouts/_left_sidebar.html.erb:12
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  Rendered layouts/_left_sidebar.html.erb (Duration: 28.0ms | Allocations: 6583)
+  Rendered layouts/_top_navbar.html.erb (Duration: 0.0ms | Allocations: 5)
+Completed 200 OK in 116ms (Views: 74.2ms | ActiveRecord: 39.6ms | Allocations: 26481)
+
+
+user: tshepo
+GET /opinions
+AVOID eager loading detected
+  Opinion => [:votes]
+  Remove from your query: .includes([:votes])
+Call stack
+
+

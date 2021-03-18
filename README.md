@@ -71,6 +71,18 @@ The tests were created with RSpec, to run the tests you should open the app fold
 ```
 $   rspec --format documentation
 ```
+## Live Demo
+
+[Live Demo Link](https://mysterious-falls-70338.herokuapp.com/)
+
+## Video Presentation
+
+[Project Presentation]()
+
+## Button to deploy in heroku 
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
 
 ## Authors
 

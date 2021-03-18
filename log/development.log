@@ -4401,3 +4401,71 @@ AVOID eager loading detected
 Call stack
 
 
+  [1m[35m (25.0ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5168794849566389475)[0m
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(5168794849566389475)[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2021-03-18 11:58:02 +0200
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by OpinionsController#index as HTML
+  Rendering opinions/index.html.erb within layouts/application
+  Rendered opinions/_navbar.html.erb (Duration: 10.0ms | Allocations: 162)
+  Rendered opinions/_form.html.erb (Duration: 12.6ms | Allocations: 591)
+  [1m[36mOpinion Load (1.1ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" ORDER BY "opinions"."created_at" DESC[0m
+  ↳ app/views/opinions/_opinions_list.html.erb:1
+  [1m[36mVote Load (24.2ms)[0m  [1m[34mSELECT "votes".* FROM "votes" WHERE "votes"."current_opinion_id" = $1[0m  [["current_opinion_id", 1]]
+  ↳ app/views/opinions/_opinions_list.html.erb:1
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/opinions_helper.rb:11:in `show_vote_buttons'
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "votes" WHERE "votes"."current_opinion_id" = $1 AND "votes"."vote_type" = $2[0m  [["current_opinion_id", 1], ["vote_type", "up"]]
+  ↳ app/helpers/opinions_helper.rb:3:in `get_opinion_count'
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "votes" WHERE "votes"."current_opinion_id" = $1 AND "votes"."vote_type" = $2[0m  [["current_opinion_id", 1], ["vote_type", "down"]]
+  ↳ app/helpers/opinions_helper.rb:4:in `get_opinion_count'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  Rendered opinions/_opinions_list.html.erb (Duration: 178.9ms | Allocations: 29161)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != $1 ORDER BY "users"."created_at" DESC[0m  [["id", 1]]
+  ↳ app/helpers/users_helper.rb:4:in `gel_all_unfollowed_users'
+  [1m[36mUser Load (23.6ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followedId" WHERE "followings"."followerId" = $1[0m  [["followerId", 1]]
+  ↳ app/helpers/users_helper.rb:4:in `gel_all_unfollowed_users'
+  Rendered opinions/_right_sidebar.html.erb (Duration: 67.9ms | Allocations: 5924)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 295.7ms | Allocations: 36926)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followedId" WHERE "followings"."followerId" = $1[0m  [["followerId", 1]]
+  ↳ app/views/layouts/_left_sidebar.html.erb:8
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followerId" WHERE "followings"."followedId" = $1[0m  [["followedId", 1]]
+  ↳ app/views/layouts/_left_sidebar.html.erb:12
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  Rendered layouts/_left_sidebar.html.erb (Duration: 29.1ms | Allocations: 6861)
+  Rendered layouts/_top_navbar.html.erb (Duration: 1.0ms | Allocations: 82)
+Completed 200 OK in 1102ms (Views: 1003.1ms | ActiveRecord: 63.7ms | Allocations: 126573)
+
+
+user: tshepo
+GET /
+AVOID eager loading detected
+  Opinion => [:votes]
+  Remove from your query: .includes([:votes])
+Call stack
+
+

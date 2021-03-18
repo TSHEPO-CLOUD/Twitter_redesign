@@ -3709,3 +3709,240 @@ puma (4.3.6) lib/puma/server.rb:713:in `handle_request'
 puma (4.3.6) lib/puma/server.rb:472:in `process_client'
 puma (4.3.6) lib/puma/server.rb:328:in `block in run'
 puma (4.3.6) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started GET "/" for 127.0.0.1 at 2021-03-17 19:32:58 +0200
+  
+PG::ConnectionBad (FATAL:  Peer authentication failed for user "postgres"
+):
+  
+pg (0.18.4) lib/pg.rb:45:in `initialize'
+pg (0.18.4) lib/pg.rb:45:in `new'
+pg (0.18.4) lib/pg.rb:45:in `connect'
+activerecord (6.0.3.4) lib/active_record/connection_adapters/postgresql_adapter.rb:46:in `postgresql_connection'
+activerecord (6.0.3.4) lib/active_record/connection_adapters/abstract/connection_pool.rb:887:in `new_connection'
+activerecord (6.0.3.4) lib/active_record/connection_adapters/abstract/connection_pool.rb:931:in `checkout_new_connection'
+activerecord (6.0.3.4) lib/active_record/connection_adapters/abstract/connection_pool.rb:910:in `try_to_checkout_new_connection'
+activerecord (6.0.3.4) lib/active_record/connection_adapters/abstract/connection_pool.rb:871:in `acquire_connection'
+activerecord (6.0.3.4) lib/active_record/connection_adapters/abstract/connection_pool.rb:593:in `checkout'
+activerecord (6.0.3.4) lib/active_record/connection_adapters/abstract/connection_pool.rb:437:in `connection'
+activerecord (6.0.3.4) lib/active_record/connection_adapters/abstract/connection_pool.rb:1119:in `retrieve_connection'
+activerecord (6.0.3.4) lib/active_record/connection_handling.rb:221:in `retrieve_connection'
+activerecord (6.0.3.4) lib/active_record/connection_handling.rb:189:in `connection'
+activerecord (6.0.3.4) lib/active_record/migration.rb:562:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.0.3.4) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/debug_exceptions.rb:32:in `call'
+web-console (4.1.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.1.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.0.3.4) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `block in tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (6.0.3.4) lib/active_support/tagged_logging.rb:80:in `tagged'
+railties (6.0.3.4) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.0.3.4) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+rack-livereload (0.3.17) lib/rack/livereload.rb:23:in `_call'
+rack-livereload (0.3.17) lib/rack/livereload.rb:14:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/static.rb:126:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.0.3.4) lib/action_dispatch/middleware/host_authorization.rb:82:in `call'
+webpacker (4.3.0) lib/webpacker/dev_server_proxy.rb:23:in `perform_request'
+rack-proxy (0.6.5) lib/rack/proxy.rb:57:in `call'
+railties (6.0.3.4) lib/rails/engine.rb:527:in `call'
+puma (4.3.6) lib/puma/configuration.rb:228:in `call'
+puma (4.3.6) lib/puma/server.rb:713:in `handle_request'
+puma (4.3.6) lib/puma/server.rb:472:in `process_client'
+puma (4.3.6) lib/puma/server.rb:328:in `block in run'
+puma (4.3.6) lib/puma/thread_pool.rb:134:in `block in spawn_thread'
+Started POST "/__web_console/repl_sessions/756bce9684f83babf8d671d059ab2d08/trace" for 127.0.0.1 at 2021-03-17 19:33:13 +0200
+Started POST "/__web_console/repl_sessions/756bce9684f83babf8d671d059ab2d08/trace" for 127.0.0.1 at 2021-03-17 19:33:22 +0200
+Started POST "/__web_console/repl_sessions/756bce9684f83babf8d671d059ab2d08/trace" for 127.0.0.1 at 2021-03-17 19:33:31 +0200
+Started POST "/__web_console/repl_sessions/756bce9684f83babf8d671d059ab2d08/trace" for 127.0.0.1 at 2021-03-17 19:33:37 +0200
+  [1m[35m (1148.4ms)[0m  [1m[35mCREATE DATABASE "my_database_development" ENCODING = 'utf8'[0m
+  [1m[35m (512.4ms)[0m  [1m[35mCREATE DATABASE "my_database_test" ENCODING = 'utf8'[0m
+  [1m[35m (236.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (144.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (13.7ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5168794849566389475)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20201102193640)
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (105.9ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "fullname" character varying, "photo" character varying, "coverImage" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20201102193640"]]
+  [1m[35m (15.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateOpinions (20201102193846)
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (79.1ms)[0m  [1m[35mCREATE TABLE "opinions" ("id" bigserial primary key, "authorId" integer, "text" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20201102193846"]]
+  [1m[35m (12.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateFollowings (20201102204736)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (34.4ms)[0m  [1m[35mCREATE TABLE "followings" ("id" bigserial primary key, "followerId" integer, "followedId" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20201102204736"]]
+  [1m[35m (12.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddAttachmentPhotoToUsers (20201103172917)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "users" ADD "photo_file_name" character varying[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "photo_content_type" character varying[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "users" ADD "photo_file_size" integer[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "photo_updated_at" timestamp[0m
+  [1m[36mprimary::SchemaMigration Create (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20201103172917"]]
+  [1m[35m (127.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddAttachmentCoverImageToUsers (20201105075604)
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "users" ADD "cover_image_file_name" character varying[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "users" ADD "cover_image_content_type" character varying[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "users" ADD "cover_image_file_size" integer[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "users" ADD "cover_image_updated_at" timestamp[0m
+  [1m[36mprimary::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20201105075604"]]
+  [1m[35m (4.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateVotes (20201105175512)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (34.9ms)[0m  [1m[35mCREATE TABLE "votes" ("id" bigserial primary key, "voter_id" integer, "current_opinion_id" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20201105175512"]]
+  [1m[35m (13.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddVoteTypeFieldToVotes (20201106144936)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (53.3ms)[0m  [1m[35mALTER TABLE "votes" ADD "vote_type" character varying[0m
+  [1m[36mprimary::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20201106144936"]]
+  [1m[35m (4.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-03-17 18:24:45.352496"], ["updated_at", "2021-03-17 18:24:45.352496"]]
+  [1m[35m (25.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT pg_advisory_unlock(5168794849566389475)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2021-03-17 20:25:08 +0200
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by OpinionsController#index as HTML
+  Rendering opinions/index.html.erb within layouts/application
+  Rendered opinions/_navbar.html.erb (Duration: 1.0ms | Allocations: 162)
+  Rendered opinions/_form.html.erb (Duration: 17.4ms | Allocations: 591)
+  [1m[36mOpinion Load (1.4ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" ORDER BY "opinions"."created_at" DESC[0m
+  ↳ app/views/opinions/_opinions_list.html.erb:1
+  Rendered opinions/_opinions_list.html.erb (Duration: 21.9ms | Allocations: 961)
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  Rendered opinions/_right_sidebar.html.erb (Duration: 16.0ms | Allocations: 7699)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 72.7ms | Allocations: 10502)
+Completed 500 Internal Server Error in 103ms (ActiveRecord: 8.9ms | Allocations: 17931)
+
+
+  
+ActionView::Template::Error (Couldn't find User with 'id'=2):
+     5:   </div>
+     6: 
+     7:   <div class="d-flex flex-column">
+     8:     <% gel_all_unfollowed_users.each do |user| %>
+     9:       <div class="container bg-light my-2">
+    10:         <div class="d-flex flex-row align-items-center">
+    11:           <div class="mr-3 flex-shrink-1 ">
+  
+app/helpers/application_helper.rb:5:in `current_user'
+app/helpers/users_helper.rb:2:in `gel_all_unfollowed_users'
+app/views/opinions/_right_sidebar.html.erb:8
+app/views/opinions/index.html.erb:17
+Started GET "/" for 127.0.0.1 at 2021-03-17 20:30:18 +0200
+Processing by OpinionsController#index as HTML
+  Rendering opinions/index.html.erb within layouts/application
+  Rendered opinions/_navbar.html.erb (Duration: 0.4ms | Allocations: 42)
+  Rendered opinions/_form.html.erb (Duration: 1.3ms | Allocations: 223)
+  [1m[36mOpinion Load (0.8ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" ORDER BY "opinions"."created_at" DESC[0m
+  ↳ app/views/opinions/_opinions_list.html.erb:1
+  Rendered opinions/_opinions_list.html.erb (Duration: 3.1ms | Allocations: 673)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  Rendered opinions/_right_sidebar.html.erb (Duration: 2.7ms | Allocations: 1694)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 9.0ms | Allocations: 2877)
+Completed 500 Internal Server Error in 13ms (ActiveRecord: 1.1ms | Allocations: 3385)
+
+
+  
+ActionView::Template::Error (Couldn't find User with 'id'=2):
+     5:   </div>
+     6: 
+     7:   <div class="d-flex flex-column">
+     8:     <% gel_all_unfollowed_users.each do |user| %>
+     9:       <div class="container bg-light my-2">
+    10:         <div class="d-flex flex-row align-items-center">
+    11:           <div class="mr-3 flex-shrink-1 ">
+  
+app/helpers/application_helper.rb:5:in `current_user'
+app/helpers/users_helper.rb:2:in `gel_all_unfollowed_users'
+app/views/opinions/_right_sidebar.html.erb:8
+app/views/opinions/index.html.erb:17
+Started GET "/" for 127.0.0.1 at 2021-03-17 20:30:19 +0200
+Processing by OpinionsController#index as HTML
+  Rendering opinions/index.html.erb within layouts/application
+  Rendered opinions/_navbar.html.erb (Duration: 0.2ms | Allocations: 37)
+  Rendered opinions/_form.html.erb (Duration: 0.5ms | Allocations: 219)
+  [1m[36mOpinion Load (0.4ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" ORDER BY "opinions"."created_at" DESC[0m
+  ↳ app/views/opinions/_opinions_list.html.erb:1
+  Rendered opinions/_opinions_list.html.erb (Duration: 1.3ms | Allocations: 673)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  Rendered opinions/_right_sidebar.html.erb (Duration: 2.5ms | Allocations: 1694)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 5.3ms | Allocations: 2868)
+Completed 500 Internal Server Error in 7ms (ActiveRecord: 0.7ms | Allocations: 3375)
+
+
+  
+ActionView::Template::Error (Couldn't find User with 'id'=2):
+     5:   </div>
+     6: 
+     7:   <div class="d-flex flex-column">
+     8:     <% gel_all_unfollowed_users.each do |user| %>
+     9:       <div class="container bg-light my-2">
+    10:         <div class="d-flex flex-row align-items-center">
+    11:           <div class="mr-3 flex-shrink-1 ">
+  
+app/helpers/application_helper.rb:5:in `current_user'
+app/helpers/users_helper.rb:2:in `gel_all_unfollowed_users'
+app/views/opinions/_right_sidebar.html.erb:8
+app/views/opinions/index.html.erb:17
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5168794849566389475)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(5168794849566389475)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2021-03-17 20:33:18 +0200
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by OpinionsController#index as HTML
+  Rendering opinions/index.html.erb within layouts/application
+  Rendered opinions/_navbar.html.erb (Duration: 0.6ms | Allocations: 162)
+  Rendered opinions/_form.html.erb (Duration: 4.2ms | Allocations: 591)
+  [1m[36mOpinion Load (0.5ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" ORDER BY "opinions"."created_at" DESC[0m
+  ↳ app/views/opinions/_opinions_list.html.erb:1
+  Rendered opinions/_opinions_list.html.erb (Duration: 2.5ms | Allocations: 961)
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:5:in `current_user'
+  Rendered opinions/_right_sidebar.html.erb (Duration: 24.9ms | Allocations: 7703)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 38.3ms | Allocations: 10506)
+Completed 500 Internal Server Error in 59ms (ActiveRecord: 11.0ms | Allocations: 17935)
+
+
+  
+ActionView::Template::Error (Couldn't find User with 'id'=2):
+     5:   </div>
+     6: 
+     7:   <div class="d-flex flex-column">
+     8:     <% gel_all_unfollowed_users.each do |user| %>
+     9:       <div class="container bg-light my-2">
+    10:         <div class="d-flex flex-row align-items-center">
+    11:           <div class="mr-3 flex-shrink-1 ">
+  
+app/helpers/application_helper.rb:5:in `current_user'
+app/helpers/users_helper.rb:2:in `gel_all_unfollowed_users'
+app/views/opinions/_right_sidebar.html.erb:8
+app/views/opinions/index.html.erb:17
+Started POST "/__web_console/repl_sessions/97df59907517161d16c07c39978fc042/trace" for 127.0.0.1 at 2021-03-17 20:33:39 +0200

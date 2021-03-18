@@ -14,7 +14,7 @@ The functionality to follow/unfollow is very intuitive. '+' buttons to follow cl
 
 
 ## Screenshot of the page
-
+![Screenshot Profile Page](./app/assets/images/front.png)
 
 ## Built With
 
@@ -34,7 +34,7 @@ You can get a local copy of the repository please run the following commands on 
 ```
 $ cd <folder>
 
-$ git clone git@github.com:dasileker/twitter-cap.git
+$ git clone https://github.com/TSHEPO-CLOUD/Twitter_redesign/tree/feature-branch
 ```
 
 You need to install the required gems:

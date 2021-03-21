@@ -1,17 +1,14 @@
 Rails.application.routes.draw do
-  resources :followings, only: [:new, :create, :destroy]
-  resources :opinions, only: [:index, :new, :create, :edit, :update, :destroy]
-  resources :users, only: [:index, :edit, :show, :new, :create, :update, :destroy]
-
-  root "opinions#index"
-
-  resources :sessions, only: [:new, :create, :destroy]
-
-  get "signup", to: "users#new", as: "signup"
-  get "login", to: "sessions#new", as: "login"
-  get "logout", to: "sessions#destroy", as: "logout"
-
-  get "vote", to: "opinions#update_vote", as: "vote"
-
+  root to: 'opinions#index'
+  resources :users, only: %i[new create edit update]
+  resources :opinions, only: [:index, :create] do
+  	resources :comments, only: [:create]
+  end
+  get 'sign_in', to: 'sessions#new'
+  post 'sign_in', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
+  post 'opinion', to: 'opinions#create'
+  post 'follow', to: 'followings#create'
+  get 'users/:username', to: 'users#show', as: 'profile'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

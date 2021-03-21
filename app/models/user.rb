@@ -1,28 +1,20 @@
 class User < ApplicationRecord
-  has_many :opinions, foreign_key: :authorId, dependent: :destroy
+  has_attached_file :photo
+  has_attached_file :cover_image
 
-  has_many :follower_users, class_name: 'Following', foreign_key: :followedId, dependent: :destroy
-  has_many :followers, through: :follower_users
+  validates :username, presence: true, uniqueness: true, length: { minimum: 3, maximum: 12 }
+  validates :fullname, presence: true, length: { minimum: 5, maximum: 20 }
+  validates_attachment_content_type :photo, :cover_image,
+                                    content_type: ['image/jpg', 'image/jpeg', 'image/png']
 
-  has_many :followed_users, class_name: 'Following', foreign_key: :followerId, dependent: :destroy
-  has_many :followeds, through: :followed_users
+  has_many :opinions, foreign_key: 'author_id', dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :followings, class_name: 'Following', foreign_key: 'follower_id'
+  has_many :follows, through: :followings, source: :followed
+  has_many :inverse_followings, class_name: 'Following', foreign_key: 'followed_id'
+  has_many :followers, through: :inverse_followings, source: :follower
 
-  validates :username, presence: true
-  validates :fullname, presence: true
-  has_attached_file :photo,
-                    styles: { medium: '300x300>',
-                              thumb: '100x100>' },
-                    default_url: '/images/:style/missing.png',
-                    storage: :cloudinary,
-                    path: ':id/:style/:filename'
-  validates_attachment_content_type :photo, content_type: %r{\Aimage/.*\z}
-
-  has_attached_file :cover_image, styles: { medium: '300x300>',
-                                            thumb: '100x100>' },
-                                  default_url: '/images/:style/missing.png',
-                                  storage: :cloudinary,
-                                  path: ':id/:style/:filename'
-  validates_attachment_content_type :cover_image, content_type: %r{\Aimage/.*\z}
-
-  has_many :votes, class_name: 'Vote', foreign_key: :voter_id, dependent: :destroy
+  def who_to_follow
+    User.where.not(id: id).where.not(id: follows).order('created_at DESC')
+  end
 end

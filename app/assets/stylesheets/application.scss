@@ -11,114 +11,135 @@
  * It is generally better to create a new file per style scope.
  *
  *= require_tree .
- *= require bootstrap
  *= require_self
  */
+@import "bootstrap";
 
-$fa-font-path: '@fortawesome/fontawesome-free/webfonts';
+$dark-blue: #1c2a3d;
+$sky-blue: #54ace3;
+$text-dark: #6c8297;
+$text-light: #fafcfc;
+$text-gray: #b3b4b6;
+$black: #000;
 
-@import '@fortawesome/fontawesome-free/scss/fontawesome';
-@import '@fortawesome/fontawesome-free/scss/solid';
-@import '@fortawesome/fontawesome-free/scss/regular';
-@import '@fortawesome/fontawesome-free/scss/brands';
-@import '@fortawesome/fontawesome-free/scss/v4-shims';
-
-.all-info {
-  //height: -webkit-calc(100vh);
-  //height: -moz-calc(100vh);
-  //height: calc(100vh);
+body {
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
 }
 
-.login_signup_form_wrapper {
-  margin: 50px auto;
-  width: 50%;
-  border: 3px solid #4e7bcf;
-  padding: 10px;
+.text-gray {
+  color: $text-gray;
 }
 
-.top_navbar {
-  background: #51a6e7;
-  height: 80px;
+.bg-custom-side {
+  background-color: $dark-blue;
 }
 
-.top_border {
-  border-top-style: solid;
-  border-top-color: #d5d6d8;
+.bg-custom-top {
+  background-color: $sky-blue;
 }
 
-.bottom_border {
-  border-bottom-style: solid;
-  border-bottom-color: #d5d6d8;
+.sidebar-links {
+  transition: all 0.3s ease-in-out;
+
+  &__anchor {
+    color: $text-dark;
+    text-transform: uppercase;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  &__icon {
+    fill: $text-dark;
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    background-color: $sky-blue;
+  }
+
+  &:hover &__anchor,
+  &:hover &__icon {
+    color: $text-light;
+    fill: $text-light;
+  }
 }
 
-.left_sidebar {
-  background: #223346;
+.follow {
+  color: $text-light;
+  font-size: 11px;
+
+  small {
+    color: $text-dark;
+  }
 }
 
-.content {
-  background: #fff;
+.profile-img {
+  transform: scale(1);
+  transition: all 0.5s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
-.left_border {
-  border-left-style: solid;
-  border-left-color: #d5d6d8;
+.tweet-pic {
+  width: 4rem;
+  height: 4rem;
 }
 
-.right_sidebar {
-  border-left-style: solid;
-  border-left-color: #d5d6d8;
-  background: #f5f6f8;
+.follow-content {
+  width: 100%;
 }
 
-.write_tweet {
-  margin: 0 auto;
-  background: #fff;
+.who-to-follow {
+  .follow-content {
+    line-height: 1rem;
+  }
 }
 
-.fullname-in-right-sidebar {
-  width: 150px;
+.user-name-p {
+  color: $black;
+
+  &:hover {
+    color: $black;
+  }
 }
 
-.hide-icon {
-  opacity: 0;
+.user-name {
+  color: $text-light;
+  font-size: 18px;
+  text-align: center;
+  transform: translateY(0);
+  text-shadow: 0 1px 2px rgba($color: $black, $alpha: 0.9);
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    color: $text-light;
+    text-decoration: none;
+    text-shadow: 0 1px 1px rgba($color: $black, $alpha: 0.95);
+    transform: translateY(1px);
+  }
 }
 
-li {
-  display: inline;
-  font-size: 25px;
+.notice,
+.alert {
+  margin-bottom: 4px;
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  padding: 5px;
+  color: dimgrey;
+  font-size: 14px;
 }
 
-.input_validations li {
-  display: inline-block;
-  color: #b33000;
-  font-size: 25px;
-  padding: 4px 0;
+.notice {
+  background-color: #d4f6c6;
 }
 
-.text-black-30 {
-  color: #cacbcd;
-}
-
-.vote_container {
-  width: 40px;
-}
-
-a:hover {
-  background: #a2a2a2;
-  border-radius: 3%;
-  color: #fff;
-  text-decoration: none;
-}
-
-.left_sidebar_links h2 a:hover {
-  background: #a2a2a2;
-  padding: 0 50px;
-  color: #fff;
-  text-decoration: none;
-}
-
-.right-sidebar-user-info {
-  display: flex;
-  justify-content: space-around;
-  width: 200px;
+.alert {
+  background-color: #f6cfc6;
 }

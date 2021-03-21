@@ -2,18 +2,21 @@ class SessionsController < ApplicationController
   def new; end
 
   def create
-    user = User.find_by_username(params[:username])
-    if user
-      session[:user_id] = user.id
-      redirect_to root_url, notice: 'You are successfully logged in!'
+    @user = User.find_by(username: params[:session][:username])
+
+    if @user
+      session[:username] = @user.username
+      flash[:notice] = 'successfully signed in'
+      redirect_to root_path
     else
-      flash.now[:alert] = 'You username is not valid or cannot be blank!'
+      flash.now[:alert] = 'Something went wrong...'
       render 'new'
     end
   end
 
   def destroy
-    session[:user_id] = nil
-    redirect_to root_url, notice: 'You are logged out!'
+    session[:username] = nil
+    flash[:notice] = 'You have successfully logged out'
+    redirect_to sign_in_path
   end
 end

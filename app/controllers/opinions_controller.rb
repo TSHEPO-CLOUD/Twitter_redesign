@@ -1,107 +1,25 @@
 class OpinionsController < ApplicationController
-  before_action :set_opinion, only: %i[show edit update destroy]
-  # GET /opinions
-  # GET /opinions.json
+  before_action :require_user
 
   def index
-    login_required
     @opinion = Opinion.new
-    timeline_opinions
+    @opinions = Opinion.order_by_most_recent
+    @not_follow = current_user.who_to_follow
   end
 
-  # GET /opinions/new
-  def new
-    @opinion = Opinion.new
-  end
-
-  # GET /opinions/1/edit
-  def edit; end
-
-  # POST /opinions
-  # POST /opinions.json
   def create
-    @opinion = Opinion.new(opinion_params)
-    @opinion.authorId = current_user.id
-
-    respond_to do |format|
-      if @opinion.save
-        format.html { redirect_to opinions_path, notice: 'Opinion was successfully created.' }
-        format.json { render :show, status: :created, location: @opinion }
-      else
-        format.html { render :new }
-        format.json { render json: @opinion.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /opinions/1
-  # PATCH/PUT /opinions/1.json
-  def update
-    respond_to do |format|
-      if @opinion.update(opinion_params)
-        format.html { redirect_to opinions_path, notice: 'Opinion was successfully updated.' }
-        format.json { render :show, status: :ok, location: @opinion }
-      else
-        format.html { render :edit }
-        format.json { render json: @opinion.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /opinions/1
-  # DELETE /opinions/1.json
-  def destroy
-    respond_to do |format|
-      if @opinion.destroy
-        format.html { redirect_to opinions_url, notice: 'Opinion was successfully destroyed.' }
-        format.json { head :no_content }
-      else
-        format.html { render :destroy }
-        format.json { render json: @opinion.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def update_vote
-    vote_direction = params[:vote_direction]
-    route = params[:route]
-    current_opinion = Opinion.find_by(id: params[:opinion])
-    current_voter = User.find_by(id: params[:voter])
-
-    case vote_direction
-    when 'up'
-      current_opinion.votes.create(voter_id: current_voter.id,
-                                   vote_type: 'up')
-    when 'down'
-      current_opinion.votes.create(voter_id: current_voter.id,
-                                   vote_type: 'down')
-    end
-
-    respond_to do |format|
-      case route
-      when 'opinions'
-        format.html { redirect_to opinions_url, notice: 'The vote is updated' }
-        format.json { head :no_content }
-      when 'user_profile'
-        format.html { redirect_to user_path(current_opinion.user.id), notice: 'The vote is updated' }
-        format.json { head :no_content }
-      end
+    @opinion = current_user.opinions.build(opinion_params)
+    if @opinion.save
+      flash[:notice] = 'Opinion was created successfully'
+      redirect_to root_path
+    else
+      flash.now[:alert] = 'Something went wrong...'
     end
   end
 
   private
 
-  def timeline_opinions
-    @timeline_opinions ||= Opinion.preload(:votes).order(created_at: :desc)
-  end
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_opinion
-    @opinion = Opinion.find(params[:id])
-  end
-
-  # Only allow a list of trusted parameters through.
   def opinion_params
-    params.require(:opinion).permit(:authorId, :text)
+    params.require(:opinion).permit(:text)
   end
 end

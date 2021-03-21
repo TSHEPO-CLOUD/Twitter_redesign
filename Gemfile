@@ -3,10 +3,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.2'
 
-# Bundle edge Rails instead: gem 'rails', github:heroku loginheroku loginheroku login 'rails/rails'
-gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 0.18.4'
+gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
@@ -27,22 +27,19 @@ gem 'jbuilder', '~> 2.7'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'bootstrap', '~> 4.5'
+gem 'hirb'
+gem 'paperclip', '~> 6.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'rspec-rails'
 end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'listen', '~> 3.2'
   gem 'web-console', '>= 3.3.0'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'bullet'
-  gem 'guard-livereload', '~> 2.5', require: false
-  gem 'rack-livereload'
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 group :test do
@@ -50,22 +47,11 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'bigdecimal', '1.3.5'
-  gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
-  gem 'rspec-rails', '~> 5.0'
-  gem 'shoulda-matchers', '~> 3.0.0'
+  gem 'rails-controller-testing'
+  gem 'rspec', '~> 3.10'
+  gem 'shoulda-matchers', '~> 4.0'
   gem 'webdrivers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-
-source 'https://rails-assets.org' do
-  gem 'rails-assets-bootstrap', '~> 4.0.0.alpha.6'
-  gem 'rails-assets-jquery'
-  gem 'rails-assets-tether'
-end
-
-gem 'paperclip', '~> 6.0.0'
-gem 'paperclip-cloudinary'
-gem 'rubocop', '~>0.81.0'

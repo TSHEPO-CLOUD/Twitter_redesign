@@ -1,7 +1,7 @@
 class Opinion < ApplicationRecord
-  belongs_to :user, foreign_key: :authorId
-  has_many :votes, class_name: 'Vote', foreign_key: :current_opinion_id
+  belongs_to :author, class_name: 'User'
+  has_many :comments, dependent: :destroy
 
-  has_many :followed_users, class_name: 'Following', foreign_key: :followerId, dependent: :destroy
-  has_many :followeds, through: :followed_users
+  validates :text, presence: true, length: { minimum: 4, maximum: 300 }
+  scope :order_by_most_recent, -> { includes(:author).order(created_at: :desc) }
 end

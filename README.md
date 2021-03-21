@@ -14,7 +14,7 @@ The functionality to follow/unfollow is very intuitive. '+' buttons to follow cl
 
 
 ## Screenshot of the page
-![Screenshot Profile Page](./app/assets/images/front.png)
+![Screenshot Profile Page](./app/assets/images/frontpage.png)
 
 ## Built With
 

@@ -3692,3 +3692,470 @@ FOREIGN KEY ("author_id")
   [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "c09355a85e13709c7bace69383f88d8d3693b2fd"], ["created_at", "2021-03-21 11:43:41.249450"], ["updated_at", "2021-03-21 11:43:41.249450"]]
   [1m[35m (13.9ms)[0m  [1m[35mCOMMIT[0m
   [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2021-03-21 14:46:08 +0200
+  [1m[35m (3.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (25.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "tshidi"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+Redirected to http://localhost:3000/sign_in
+Filter chain halted as :require_user rendered or redirected
+Completed 302 Found in 373ms (ActiveRecord: 145.6ms | Allocations: 7174)
+
+
+Started GET "/sign_in" for 127.0.0.1 at 2021-03-21 14:46:12 +0200
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 293.2ms | Allocations: 768)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "tshidi"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+  Rendered shared/_main.html.erb (Duration: 29.9ms | Allocations: 80)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "tshidi"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "tshidi"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+Completed 200 OK in 6051ms (Views: 5923.7ms | ActiveRecord: 0.5ms | Allocations: 28002)
+
+
+Started GET "/users/new" for 127.0.0.1 at 2021-03-21 14:46:27 +0200
+Processing by UsersController#new as HTML
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_error.html.erb (Duration: 0.7ms | Allocations: 132)
+  Rendered users/new.html.erb within layouts/application (Duration: 517.9ms | Allocations: 2764)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "tshidi"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+  Rendered shared/_main.html.erb (Duration: 0.0ms | Allocations: 5)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "tshidi"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "tshidi"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+Completed 200 OK in 3132ms (Views: 533.7ms | ActiveRecord: 2579.0ms | Allocations: 18416)
+
+
+Started GET "/" for 127.0.0.1 at 2021-03-21 14:55:41 +0200
+  [1m[35m (39.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "tshidi"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+Redirected to http://localhost:3000/sign_in
+Filter chain halted as :require_user rendered or redirected
+Completed 302 Found in 115ms (ActiveRecord: 79.4ms | Allocations: 7159)
+
+
+Started GET "/sign_in" for 127.0.0.1 at 2021-03-21 14:55:42 +0200
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 36.2ms | Allocations: 710)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "tshidi"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+  Rendered shared/_main.html.erb (Duration: 12.0ms | Allocations: 80)
+  [1m[36mCACHE User Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "tshidi"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "tshidi"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+Completed 200 OK in 307ms (Views: 303.7ms | ActiveRecord: 0.7ms | Allocations: 19047)
+
+
+Started GET "/users/new" for 127.0.0.1 at 2021-03-21 14:55:46 +0200
+Processing by UsersController#new as HTML
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_error.html.erb (Duration: 10.2ms | Allocations: 132)
+  Rendered users/new.html.erb within layouts/application (Duration: 324.1ms | Allocations: 2764)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "tshidi"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+  Rendered shared/_main.html.erb (Duration: 0.0ms | Allocations: 5)
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "tshidi"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "tshidi"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+Completed 200 OK in 488ms (Views: 342.2ms | ActiveRecord: 126.3ms | Allocations: 18691)
+
+
+Started POST "/users" for 127.0.0.1 at 2021-03-21 14:56:04 +0200
+Processing by UsersController#create as HTML
+  Parameters: {"authenticity_token"=>"YHQA3OqfuT4LAdGfd4M+HxqT/IS85UD/OqdOLqMNaezA6g07UnboiCxeW34dQljXKbdG8gsMRltJn2Bc6ksGqg==", "user"=>{"username"=>"dumisani", "fullname"=>"khozza"}, "commit"=>"Create User"}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:7:in `create'
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "dumisani"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:7:in `create'
+  [1m[36mUser Create (66.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "fullname", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "dumisani"], ["fullname", "khozza"], ["created_at", "2021-03-21 12:56:04.163315"], ["updated_at", "2021-03-21 12:56:04.163315"]]
+  ↳ app/controllers/users_controller.rb:7:in `create'
+  [1m[35m (24.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:7:in `create'
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:8:in `create'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["username", "dumisani"], ["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:8:in `create'
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:8:in `create'
+Redirected to http://localhost:3000/
+Completed 302 Found in 112ms (ActiveRecord: 92.9ms | Allocations: 7960)
+
+
+Started GET "/" for 127.0.0.1 at 2021-03-21 14:56:04 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "dumisani"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (17.1ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" ORDER BY "opinions"."created_at" DESC[0m
+  ↳ app/views/opinions/index.html.erb:36
+  Rendered collection of templates [0 times] (Duration: 0.0ms | Allocations: 3)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 47.7ms | Allocations: 1587)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[35m (43.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = $1[0m  [["follower_id", 1]]
+  ↳ app/views/shared/_navbar.html.erb:10
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."follower_id" WHERE "followings"."followed_id" = $1[0m  [["followed_id", 1]]
+  ↳ app/views/shared/_navbar.html.erb:13
+  Rendered shared/_navbar.html.erb (Duration: 74.6ms | Allocations: 2905)
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != $1 AND "users"."id" NOT IN (SELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = $2) ORDER BY created_at DESC[0m  [["id", 1], ["follower_id", 1]]
+  ↳ app/views/shared/_right.html.erb:4
+  Rendered shared/_right.html.erb (Duration: 22.5ms | Allocations: 919)
+Completed 200 OK in 357ms (Views: 97.8ms | ActiveRecord: 69.5ms | Allocations: 21209)
+
+
+Started POST "/opinion" for 127.0.0.1 at 2021-03-21 14:56:10 +0200
+Processing by OpinionsController#create as HTML
+  Parameters: {"authenticity_token"=>"vz767TK9oMFgAI8nBpNkVmxcCYbxDSgV179veHAOXAfsVHhIFoXyZOc70x71E7IRWtMgLMJvjFH8pobkDzktow==", "opinion"=>{"text"=>"how are you guys"}, "commit"=>"Create Opinion"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "dumisani"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/opinions_controller.rb:12:in `create'
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/opinions_controller.rb:12:in `create'
+  [1m[36mOpinion Create (44.8ms)[0m  [1m[32mINSERT INTO "opinions" ("text", "author_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["text", "how are you guys"], ["author_id", 1], ["created_at", "2021-03-21 12:56:10.722568"], ["updated_at", "2021-03-21 12:56:10.722568"]]
+  ↳ app/controllers/opinions_controller.rb:12:in `create'
+  [1m[35m (30.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/opinions_controller.rb:12:in `create'
+Redirected to http://localhost:3000/
+Completed 302 Found in 120ms (ActiveRecord: 77.3ms | Allocations: 6465)
+
+
+Started GET "/" for 127.0.0.1 at 2021-03-21 14:56:10 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "dumisani"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.7ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" ORDER BY "opinions"."created_at" DESC[0m
+  ↳ app/views/opinions/index.html.erb:36
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/opinions/index.html.erb:36
+  [1m[36mComment Load (0.7ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."opinion_id" = $1[0m  [["opinion_id", 1]]
+  ↳ app/views/opinions/_opinion.html.erb:12
+  Rendered collection of opinions/_opinion.html.erb [1 times] (Duration: 48.9ms | Allocations: 7028)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 60.1ms | Allocations: 9775)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = $1[0m  [["follower_id", 1]]
+  ↳ app/views/shared/_navbar.html.erb:10
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."follower_id" WHERE "followings"."followed_id" = $1[0m  [["followed_id", 1]]
+  ↳ app/views/shared/_navbar.html.erb:13
+  Rendered shared/_navbar.html.erb (Duration: 5.6ms | Allocations: 2175)
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != $1 AND "users"."id" NOT IN (SELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = $2) ORDER BY created_at DESC[0m  [["id", 1], ["follower_id", 1]]
+  ↳ app/views/shared/_right.html.erb:4
+  Rendered shared/_right.html.erb (Duration: 4.1ms | Allocations: 714)
+Completed 200 OK in 90ms (Views: 81.6ms | ActiveRecord: 6.0ms | Allocations: 20862)
+
+
+Started POST "/opinion" for 127.0.0.1 at 2021-03-21 14:56:41 +0200
+Processing by OpinionsController#create as HTML
+  Parameters: {"authenticity_token"=>"KfjkDIkGGT0PRtkrop3HDb/DYAiL2cC+Z8FGNsRunGx6kmaprT5LmIh9hRJRHRFKiUxJori7ZPpM2K+qu1ntyA==", "opinion"=>{"text"=>"is the any football game in town"}, "commit"=>"Create Opinion"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "dumisani"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/opinions_controller.rb:12:in `create'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/opinions_controller.rb:12:in `create'
+  [1m[36mOpinion Create (0.5ms)[0m  [1m[32mINSERT INTO "opinions" ("text", "author_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["text", "is the any football game in town"], ["author_id", 1], ["created_at", "2021-03-21 12:56:41.675948"], ["updated_at", "2021-03-21 12:56:41.675948"]]
+  ↳ app/controllers/opinions_controller.rb:12:in `create'
+  [1m[35m (37.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/opinions_controller.rb:12:in `create'
+Redirected to http://localhost:3000/
+Completed 302 Found in 47ms (ActiveRecord: 38.1ms | Allocations: 5079)
+
+
+Started GET "/" for 127.0.0.1 at 2021-03-21 14:56:41 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "dumisani"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.5ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" ORDER BY "opinions"."created_at" DESC[0m
+  ↳ app/views/opinions/index.html.erb:36
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/opinions/index.html.erb:36
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."opinion_id" = $1[0m  [["opinion_id", 2]]
+  ↳ app/views/opinions/_opinion.html.erb:12
+  [1m[36mComment Load (0.6ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."opinion_id" = $1[0m  [["opinion_id", 1]]
+  ↳ app/views/opinions/_opinion.html.erb:12
+  Rendered collection of opinions/_opinion.html.erb [2 times] (Duration: 81.5ms | Allocations: 6500)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 90.7ms | Allocations: 9217)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = $1[0m  [["follower_id", 1]]
+  ↳ app/views/shared/_navbar.html.erb:10
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."follower_id" WHERE "followings"."followed_id" = $1[0m  [["followed_id", 1]]
+  ↳ app/views/shared/_navbar.html.erb:13
+  Rendered shared/_navbar.html.erb (Duration: 6.5ms | Allocations: 2172)
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != $1 AND "users"."id" NOT IN (SELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = $2) ORDER BY created_at DESC[0m  [["id", 1], ["follower_id", 1]]
+  ↳ app/views/shared/_right.html.erb:4
+  Rendered shared/_right.html.erb (Duration: 2.0ms | Allocations: 714)
+Completed 200 OK in 109ms (Views: 104.2ms | ActiveRecord: 3.3ms | Allocations: 20166)
+
+
+Started GET "/" for ::1 at 2021-03-21 15:21:47 +0200
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by OpinionsController#index as HTML
+Redirected to http://localhost:3000/sign_in
+Filter chain halted as :require_user rendered or redirected
+Completed 302 Found in 6ms (ActiveRecord: 0.0ms | Allocations: 342)
+
+
+Started GET "/sign_in" for ::1 at 2021-03-21 15:21:47 +0200
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 54.7ms | Allocations: 715)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered shared/_main.html.erb (Duration: 15.4ms | Allocations: 80)
+Completed 200 OK in 472ms (Views: 469.0ms | ActiveRecord: 0.0ms | Allocations: 17382)
+
+
+Started GET "/users/new" for ::1 at 2021-03-21 15:21:50 +0200
+Processing by UsersController#new as HTML
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_error.html.erb (Duration: 0.3ms | Allocations: 132)
+  Rendered users/new.html.erb within layouts/application (Duration: 75.7ms | Allocations: 2764)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered shared/_main.html.erb (Duration: 0.1ms | Allocations: 5)
+Completed 200 OK in 143ms (Views: 93.5ms | ActiveRecord: 3.6ms | Allocations: 22314)
+
+
+Started POST "/users" for ::1 at 2021-03-21 15:22:08 +0200
+Processing by UsersController#create as HTML
+  Parameters: {"authenticity_token"=>"naPNNG7urk22PnSfluxx+vDHUmgqmF61hrDWpA9EO86DeUPEDuTzJXdCseVR3jFnN1ASRNSZweg0fvxovkP2/w==", "user"=>{"username"=>"davidd ", "fullname"=>"mmmoaam"}, "commit"=>"Create User"}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:7:in `create'
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "davidd "], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:7:in `create'
+  [1m[36mUser Create (25.0ms)[0m  [1m[32mINSERT INTO "users" ("username", "fullname", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "davidd "], ["fullname", "mmmoaam"], ["created_at", "2021-03-21 13:22:08.719907"], ["updated_at", "2021-03-21 13:22:08.719907"]]
+  ↳ app/controllers/users_controller.rb:7:in `create'
+  [1m[35m (36.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:7:in `create'
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:8:in `create'
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["username", "davidd "], ["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:8:in `create'
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:8:in `create'
+Redirected to http://localhost:3000/
+Completed 302 Found in 106ms (ActiveRecord: 63.9ms | Allocations: 8209)
+
+
+Started GET "/" for ::1 at 2021-03-21 15:22:08 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "davidd "], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.9ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" ORDER BY "opinions"."created_at" DESC[0m
+  ↳ app/views/opinions/index.html.erb:36
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1[0m  [["id", 1]]
+  ↳ app/views/opinions/index.html.erb:36
+  [1m[36mComment Load (0.8ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."opinion_id" = $1[0m  [["opinion_id", 2]]
+  ↳ app/views/opinions/_opinion.html.erb:12
+  [1m[36mComment Load (0.6ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."opinion_id" = $1[0m  [["opinion_id", 1]]
+  ↳ app/views/opinions/_opinion.html.erb:12
+  Rendered collection of opinions/_opinion.html.erb [2 times] (Duration: 141.2ms | Allocations: 9253)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 191.8ms | Allocations: 13279)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = $1[0m  [["follower_id", 2]]
+  ↳ app/views/shared/_navbar.html.erb:10
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."follower_id" WHERE "followings"."followed_id" = $1[0m  [["followed_id", 2]]
+  ↳ app/views/shared/_navbar.html.erb:13
+  Rendered shared/_navbar.html.erb (Duration: 25.3ms | Allocations: 2908)
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != $1 AND "users"."id" NOT IN (SELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = $2) ORDER BY created_at DESC[0m  [["id", 2], ["follower_id", 2]]
+  ↳ app/views/shared/_right.html.erb:4
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."follower_id" WHERE "followings"."followed_id" = $1[0m  [["followed_id", 1]]
+  ↳ app/helpers/users_helper.rb:4:in `show_follower'
+  Rendered shared/_right.html.erb (Duration: 17.2ms | Allocations: 2067)
+Completed 200 OK in 410ms (Views: 240.3ms | ActiveRecord: 17.2ms | Allocations: 34165)
+
+
+Started POST "/opinion" for ::1 at 2021-03-21 15:22:12 +0200
+Processing by OpinionsController#create as HTML
+  Parameters: {"authenticity_token"=>"AjM3eyqOIU1jE21geVhv58NY02mLPvksA1giICV4VZBeSNUsmoYhGL88Hd39F+vKhO94j8z2b/kih64wf64KtA==", "opinion"=>{"text"=>"Any football game in town today"}, "commit"=>"Create Opinion"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "davidd "], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/opinions_controller.rb:12:in `create'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/opinions_controller.rb:12:in `create'
+  [1m[36mOpinion Create (0.6ms)[0m  [1m[32mINSERT INTO "opinions" ("text", "author_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["text", "Any football game in town today"], ["author_id", 2], ["created_at", "2021-03-21 13:22:12.278353"], ["updated_at", "2021-03-21 13:22:12.278353"]]
+  ↳ app/controllers/opinions_controller.rb:12:in `create'
+  [1m[35m (16.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/opinions_controller.rb:12:in `create'
+Redirected to http://localhost:3000/
+Completed 302 Found in 33ms (ActiveRecord: 18.3ms | Allocations: 5722)
+
+
+Started GET "/" for ::1 at 2021-03-21 15:22:12 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "davidd "], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.7ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" ORDER BY "opinions"."created_at" DESC[0m
+  ↳ app/views/opinions/index.html.erb:36
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN ($1, $2)[0m  [["id", 2], ["id", 1]]
+  ↳ app/views/opinions/index.html.erb:36
+  [1m[36mComment Load (0.6ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."opinion_id" = $1[0m  [["opinion_id", 3]]
+  ↳ app/views/opinions/_opinion.html.erb:12
+  [1m[36mComment Load (0.6ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."opinion_id" = $1[0m  [["opinion_id", 2]]
+  ↳ app/views/opinions/_opinion.html.erb:12
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."opinion_id" = $1[0m  [["opinion_id", 1]]
+  ↳ app/views/opinions/_opinion.html.erb:12
+  Rendered collection of opinions/_opinion.html.erb [3 times] (Duration: 18.4ms | Allocations: 5159)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 26.8ms | Allocations: 8125)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = $1[0m  [["follower_id", 2]]
+  ↳ app/views/shared/_navbar.html.erb:10
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."follower_id" WHERE "followings"."followed_id" = $1[0m  [["followed_id", 2]]
+  ↳ app/views/shared/_navbar.html.erb:13
+  Rendered shared/_navbar.html.erb (Duration: 6.8ms | Allocations: 2187)
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != $1 AND "users"."id" NOT IN (SELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = $2) ORDER BY created_at DESC[0m  [["id", 2], ["follower_id", 2]]
+  ↳ app/views/shared/_right.html.erb:4
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."follower_id" WHERE "followings"."followed_id" = $1[0m  [["followed_id", 1]]
+  ↳ app/helpers/users_helper.rb:4:in `show_follower'
+  Rendered shared/_right.html.erb (Duration: 11.1ms | Allocations: 1856)
+Completed 200 OK in 64ms (Views: 53.1ms | ActiveRecord: 7.1ms | Allocations: 20432)
+
+
+Started DELETE "/logout" for ::1 at 2021-03-21 15:24:25 +0200
+Processing by SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"S1XOVUN3CI/xr1mXdOaBYIo4SixzKxn6HcAwJnUFqMEXLiwC838I2i2AKSrwqQVNzY/hyjTjjy88H7w2L9P35Q=="}
+Redirected to http://localhost:3000/sign_in
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms | Allocations: 328)
+
+
+Started GET "/sign_in" for ::1 at 2021-03-21 15:24:25 +0200
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 1.4ms | Allocations: 251)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered shared/_main.html.erb (Duration: 0.2ms | Allocations: 6)
+Completed 200 OK in 53ms (Views: 49.4ms | ActiveRecord: 0.0ms | Allocations: 7162)
+
+
+Started GET "/users/new" for ::1 at 2021-03-21 15:24:28 +0200
+Processing by UsersController#new as HTML
+  Rendering users/new.html.erb within layouts/application
+  Rendered users/_error.html.erb (Duration: 0.1ms | Allocations: 15)
+  Rendered users/new.html.erb within layouts/application (Duration: 3.6ms | Allocations: 726)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered shared/_main.html.erb (Duration: 0.5ms | Allocations: 5)
+Completed 200 OK in 37ms (Views: 34.0ms | ActiveRecord: 0.0ms | Allocations: 7645)
+
+
+Started POST "/users" for ::1 at 2021-03-21 15:24:59 +0200
+Processing by UsersController#create as HTML
+  Parameters: {"authenticity_token"=>"LRktAXCWIlFhWb55Pv0aZVA58w6lKFkSW2vildftqIozw6PxEJx/OaAlewP5z1r4l66zIlspxk/ppchZZupluw==", "user"=>{"username"=>"masss", "fullname"=>"luccey"}, "commit"=>"Create User"}
+  [1m[35m (1.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:7:in `create'
+  [1m[36mUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "masss"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:7:in `create'
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("username", "fullname", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["username", "masss"], ["fullname", "luccey"], ["created_at", "2021-03-21 13:24:59.892614"], ["updated_at", "2021-03-21 13:24:59.892614"]]
+  ↳ app/controllers/users_controller.rb:7:in `create'
+  [1m[35m (16.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:7:in `create'
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:8:in `create'
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["username", "masss"], ["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:8:in `create'
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:8:in `create'
+Redirected to http://localhost:3000/
+Completed 302 Found in 60ms (ActiveRecord: 21.3ms | Allocations: 7112)
+
+
+Started GET "/" for ::1 at 2021-03-21 15:24:59 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "masss"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (1.0ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" ORDER BY "opinions"."created_at" DESC[0m
+  ↳ app/views/opinions/index.html.erb:36
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN ($1, $2)[0m  [["id", 2], ["id", 1]]
+  ↳ app/views/opinions/index.html.erb:36
+  [1m[36mComment Load (0.6ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."opinion_id" = $1[0m  [["opinion_id", 3]]
+  ↳ app/views/opinions/_opinion.html.erb:12
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."opinion_id" = $1[0m  [["opinion_id", 2]]
+  ↳ app/views/opinions/_opinion.html.erb:12
+  [1m[36mComment Load (1.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."opinion_id" = $1[0m  [["opinion_id", 1]]
+  ↳ app/views/opinions/_opinion.html.erb:12
+  Rendered collection of opinions/_opinion.html.erb [3 times] (Duration: 64.4ms | Allocations: 5158)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 85.1ms | Allocations: 8115)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = $1[0m  [["follower_id", 3]]
+  ↳ app/views/shared/_navbar.html.erb:10
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."follower_id" WHERE "followings"."followed_id" = $1[0m  [["followed_id", 3]]
+  ↳ app/views/shared/_navbar.html.erb:13
+  Rendered shared/_navbar.html.erb (Duration: 7.1ms | Allocations: 2172)
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != $1 AND "users"."id" NOT IN (SELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = $2) ORDER BY created_at DESC[0m  [["id", 3], ["follower_id", 3]]
+  ↳ app/views/shared/_right.html.erb:4
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."follower_id" WHERE "followings"."followed_id" = $1[0m  [["followed_id", 2]]
+  ↳ app/helpers/users_helper.rb:4:in `show_follower'
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."follower_id" WHERE "followings"."followed_id" = $1[0m  [["followed_id", 1]]
+  ↳ app/helpers/users_helper.rb:4:in `show_follower'
+  Rendered shared/_right.html.erb (Duration: 23.9ms | Allocations: 3016)
+Completed 200 OK in 156ms (Views: 133.4ms | ActiveRecord: 9.1ms | Allocations: 21599)
+
+
+Started POST "/opinion" for ::1 at 2021-03-21 15:25:28 +0200
+Processing by OpinionsController#create as HTML
+  Parameters: {"authenticity_token"=>"DeLc4HUCGL8d2aOca+pNsqUGFh4kru05PbwkFUMhf+JRmT63xQoY6sH20yHvpcmf4rG9+GNme+wcY6gFGfcgxg==", "opinion"=>{"text"=>"Any football game in town today"}, "commit"=>"Create Opinion"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "masss"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/opinions_controller.rb:12:in `create'
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/opinions_controller.rb:12:in `create'
+  [1m[36mOpinion Create (0.8ms)[0m  [1m[32mINSERT INTO "opinions" ("text", "author_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["text", "Any football game in town today"], ["author_id", 3], ["created_at", "2021-03-21 13:25:28.323869"], ["updated_at", "2021-03-21 13:25:28.323869"]]
+  ↳ app/controllers/opinions_controller.rb:12:in `create'
+  [1m[35m (21.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/opinions_controller.rb:12:in `create'
+Redirected to http://localhost:3000/
+Completed 302 Found in 49ms (ActiveRecord: 23.7ms | Allocations: 5043)
+
+
+Started GET "/" for ::1 at 2021-03-21 15:25:28 +0200
+Processing by OpinionsController#index as HTML
+  [1m[36mUser Load (2.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "masss"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
+  Rendering opinions/index.html.erb within layouts/application
+  [1m[36mOpinion Load (0.6ms)[0m  [1m[34mSELECT "opinions".* FROM "opinions" ORDER BY "opinions"."created_at" DESC[0m
+  ↳ app/views/opinions/index.html.erb:36
+  [1m[36mUser Load (3.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" IN ($1, $2, $3)[0m  [["id", 3], ["id", 2], ["id", 1]]
+  ↳ app/views/opinions/index.html.erb:36
+  [1m[36mComment Load (1.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."opinion_id" = $1[0m  [["opinion_id", 4]]
+  ↳ app/views/opinions/_opinion.html.erb:12
+  [1m[36mComment Load (2.0ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."opinion_id" = $1[0m  [["opinion_id", 3]]
+  ↳ app/views/opinions/_opinion.html.erb:12
+  [1m[36mComment Load (0.6ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."opinion_id" = $1[0m  [["opinion_id", 2]]
+  ↳ app/views/opinions/_opinion.html.erb:12
+  [1m[36mComment Load (0.3ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."opinion_id" = $1[0m  [["opinion_id", 1]]
+  ↳ app/views/opinions/_opinion.html.erb:12
+  Rendered collection of opinions/_opinion.html.erb [4 times] (Duration: 57.1ms | Allocations: 6885)
+  Rendered opinions/index.html.erb within layouts/application (Duration: 84.3ms | Allocations: 10067)
+[Webpacker] Everything's up-to-date. Nothing to do
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = $1[0m  [["follower_id", 3]]
+  ↳ app/views/shared/_navbar.html.erb:10
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."follower_id" WHERE "followings"."followed_id" = $1[0m  [["followed_id", 3]]
+  ↳ app/views/shared/_navbar.html.erb:13
+  Rendered shared/_navbar.html.erb (Duration: 15.1ms | Allocations: 2171)
+  [1m[36mUser Load (2.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" != $1 AND "users"."id" NOT IN (SELECT "users"."id" FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."followed_id" WHERE "followings"."follower_id" = $2) ORDER BY created_at DESC[0m  [["id", 3], ["follower_id", 3]]
+  ↳ app/views/shared/_right.html.erb:4
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."follower_id" WHERE "followings"."followed_id" = $1[0m  [["followed_id", 2]]
+  ↳ app/helpers/users_helper.rb:4:in `show_follower'
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" INNER JOIN "followings" ON "users"."id" = "followings"."follower_id" WHERE "followings"."followed_id" = $1[0m  [["followed_id", 1]]
+  ↳ app/helpers/users_helper.rb:4:in `show_follower'
+  Rendered shared/_right.html.erb (Duration: 17.2ms | Allocations: 3016)
+Completed 200 OK in 147ms (Views: 121.8ms | ActiveRecord: 16.1ms | Allocations: 23557)
+
+

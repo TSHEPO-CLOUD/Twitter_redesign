@@ -10,48 +10,50 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_06_144936) do
+ActiveRecord::Schema.define(version: 2020_09_17_105944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "comments", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "opinion_id"
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["opinion_id"], name: "index_comments_on_opinion_id"
+  end
+
   create_table "followings", force: :cascade do |t|
-    t.integer "followerId"
-    t.integer "followedId"
+    t.integer "follower_id", null: false
+    t.integer "followed_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "opinions", force: :cascade do |t|
-    t.integer "authorId"
     t.text "text"
+    t.integer "author_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["author_id"], name: "index_opinions_on_author_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "fullname"
-    t.string "photo"
-    t.string "coverImage"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "photo_file_name"
     t.string "photo_content_type"
-    t.integer "photo_file_size"
+    t.bigint "photo_file_size"
     t.datetime "photo_updated_at"
     t.string "cover_image_file_name"
     t.string "cover_image_content_type"
-    t.integer "cover_image_file_size"
+    t.bigint "cover_image_file_size"
     t.datetime "cover_image_updated_at"
   end
 
-  create_table "votes", force: :cascade do |t|
-    t.integer "voter_id"
-    t.integer "current_opinion_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "vote_type"
-  end
-
+  add_foreign_key "comments", "users"
+  add_foreign_key "opinions", "users", column: "author_id"
 end

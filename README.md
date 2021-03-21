@@ -1,8 +1,8 @@
 # Ruby on Rails Capstone Project.
 
-In this project, I redesigned a twitter to create opinions about movies. I used a lot of knowledge acquired throughout the Ruby on Rails section, Model/View/Controller concepts, some of bootstrap from previous HTML & CSS, among other knowledge acquired on Microverse to create an MVP for this app.
+In this project, I redesigned a twitter to create opinions about football games. I used a lot of knowledge acquired throughout the Ruby on Rails section, Model/View/Controller concepts, some of bootstrap from previous HTML & CSS, among other knowledge acquired on Microverse to create an MVP for this app.
 
-The project consists of a Sing up/Login with username as the login information (as required). The user has a photo to show on his profile/opinions and a cover image that shows on his profile. The images should be provided as URL because I can't store images on heroku database. If no image is informed, or an invalid URL the app will show a default one instead.
+The project consists of a Sing up/Login with username as the login information (as required). The user has a photo to show on his profile/opinions and a cover image that shows on his profile. The images should be provided as URL because I can't store images on heroku database. If no image is informed, or an invalid URL the app will show a default one instead which uses unsplush.
 
 Without logging in the user can see all user's opinions on a central 'timeline' and on the right a list of users who are registered. 
 
@@ -10,7 +10,7 @@ Logged in the user see a timeline with only opinions of the ones he follows and 
 
 There is another view for the user profile, that shows a cover image above the specific user opinions and profile information on the right.
 
-The functionality to follow/unfollow is very intuitive. '+' buttons to follow close to not followed users are shown as well as an explicit button to follow/unfollow on the profile user
+
 
 
 ## Screenshot of the page

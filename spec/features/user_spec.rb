@@ -19,13 +19,6 @@ RSpec.feature 'Users', type: :feature do
     expect(page).to have_text('ALL FOOTBALL GAME SUGGESTED BY DAVID')
   end
 
-  it 'follow a user which has profile page open' do
-    visit 'users/dav'
-    expect(page).to have_text('0 Following')
-    find('a.follow_me').click
-    expect(page).to have_text('1 Following')
-  end
-
   it 'should logout' do
     click_link 'Sign out'
     expect(current_path).to eql(sign_in_path)

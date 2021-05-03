@@ -10,7 +10,7 @@ class UsersController < ApplicationController
       flash[:notice] = 'Account is created sucessfully'
       redirect_to root_path
     else
-      flash[:alert] = 'Something went wrong...'
+      flash[:alert] = 'Something went wrong....'
       render new_user_path
     end
   end

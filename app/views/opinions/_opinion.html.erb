@@ -7,6 +7,21 @@
             <p class="card-text"><%= opinion.text %> </p>
     </div>
 </div>
+
+  <div>
+    <%= link_to edit_opinion_path(opinion) do %>
+    <button type="button" class="btn btn-primary">Edit Opinion</button>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form_for(opinion, :html => { :method => :delete, :remote => true }) do |f| %>
+      <%= f.hidden_field :opinion_id, value: opinion.id %>
+      <%= f.button :submit do %>
+        <i class='icon-white icon-trash'></i> Delete
+      <% end %>
+    <% end %> 
+  </div>
 <h6 class="text-center mt-2"><em>All comments</em></h6>
 <div class='post-comments-section'>
     <% opinion.comments.each do |comment| %>

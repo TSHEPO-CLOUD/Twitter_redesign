@@ -17,4 +17,15 @@ class User < ApplicationRecord
   def who_to_follow
     User.where.not(id: id).where.not(id: follows).order('created_at DESC')
   end
+
+  def follows?(user)
+    return false if user.id.nil?
+
+    follows.where(username: user.username).first
+  end
+
+  def unfollow(user)
+    f = followings.where(follower_id: user.id).first
+    f ? f.destroy : false
+  end
 end

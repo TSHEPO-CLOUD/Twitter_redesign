@@ -1,13 +1,31 @@
 <div class="col-3 offset-7 border-left px-1 bg-light position-fixed pt-3 py-4" >
 <div class="text-center mb-2">
-      <%= follow_me(@user, 'shared/follow') %>
+      <% if current_user == @user %>
+        <span>Edit</span>
+      <% else %>
+        <% if current_user != @user && current_user.follows?(@user) %>
+            <%= form_with(:url => following_path(@user), method: :delete) do |f| %>
+                <%= f.hidden_field :user_id, value: @user.id %>
+                <%= f.button :submit, class: 'text-danger rounded-circle mr-2 border d-block' do %>
+                <i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>
+                <% end %>
+            <% end %>
+        <% else %>
+          <%= form_with(:url => followings_path) do |f| %>
+            <%= f.hidden_field :user_id, value: @user.id %>
+            <%= f.button :submit, class: 'text-success rounded-circle mr-2 border d-block' do %>
+                <i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>
+            <% end %>
+        <% end %>
+        <% end %>
+      <% end %>
       
-        <%= profile_pic(@user, 'tweet-pic')%>
+      <%= profile_pic(@user, 'tweet-pic')%>
      
      <div class="user-info">
         <h5 class="mt-2"><%= link_to @user.fullname, profile_path(@user.username), class: "user-name-p" %> <br><small class="text-gray">@<%= @user.username %></small></h5>
         <div class="stats border-top border-bottom pt-2 d-flex flex-wrap justify-content-around">
-            <h5><%= @user.opinions.count %> <br><small>Tweets</small></h5>
+            <h5><%= @user.opinions.count %> <br><small>Opinions</small></h5>
             <h5><%= @user.follows.count %> <br><small>Following</small></h5>
             <h5><%= @user.followers.count %><br><small>Followers</small></h5>
         </div>
@@ -36,7 +54,7 @@
                         <small class="text-gray">@<%= follower.username %></small>
                     </div>
                     <div class="ml-5">
-                        <%= follow_me(@user, 'shared/follow') %>
+                        
                     </div>    
             </div>
         <% end %>
@@ -53,7 +71,7 @@
                         <small class="text-gray">@<%= follow.username %></small>
                     </div>
                     <div class="ml-5">
-                        <%= follow_me(@user, 'shared/follow') %>
+                        
                     </div>
                          
                     </div>

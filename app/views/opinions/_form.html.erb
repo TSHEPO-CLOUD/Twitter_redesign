@@ -1,0 +1,6 @@
+<%= form_for(@opinion, url: opinion_path) do |f| %>
+    <%= f.text_field :text, autofocus: true, class: "form-control", placeholder: "Suggest any Football Game by tweet ..." %>
+    <div class="actions">
+       <%= f.submit @opinion.persisted? ? "Edit" : "Post", class: 'btn btn-primary' %>
+    </div>
+<% end %>

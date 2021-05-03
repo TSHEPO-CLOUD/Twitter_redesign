@@ -17,9 +17,30 @@ class OpinionsController < ApplicationController
     end
   end
 
+  def edit
+    @opinion = Opinion.find_by_id!(params[:id])
+    @opinion
+  end
+
+  def update
+    @opinion = Opinion.find_by_id!(params[:id])
+
+    if @opinion.update(opinion_params)
+      redirect_to opinions_path, notice: 'Your Opinion has been edited.'
+    else
+      redirect_to opinions_path, alert: "Can't complete this action."
+    end
+  end
+
+  def destroy
+    @opinion = Opinion.find_by_id!(opinion_params[:opinion_id])
+    @opinion.destroy
+    redirect_to root_path, alert: 'Opinion deleted'
+  end
+
   private
 
   def opinion_params
-    params.require(:opinion).permit(:text)
+    params.require(:opinion).permit(:opinion_id, :text)
   end
 end

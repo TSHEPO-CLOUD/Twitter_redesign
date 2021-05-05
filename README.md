@@ -3,18 +3,6 @@
 In this project, I redesigned a twitter to create opinions about football games. I used a lot of knowledge acquired throughout the Ruby on Rails section, Model/View/Controller concepts, some of bootstrap from previous HTML & CSS, among other knowledge acquired on Microverse to create an MVP for this app.
 
 
-The project consists of a Sign up/Login with username as the login information (as required). The user has a photo to show on his profile/opinions and a cover image that shows on his profile. The images should be provided as URL because I can't store images on heroku database. If no image is informed, or an invalid URL the app will show a default one instead which uses unsplash.
-
-Without logging in the user can see all user's opinions on a central 'timeline' and on the right a list of users who are registered. 
-
-
-Logged in  users can see a timeline with only opinions of the ones he follows and his own opinions. On that timeline, he/she can edit/delete his/her own opinions and on other user's opinions, he can 'retweet' (the created copied opinion will have a link for the original user who created it).
-
-There is another view for the user profile, that shows a cover image above the specific user opinions and profile information on the right.
-
-Do not forget to add `yarn` to your getting started instructions, perfect after the `bundle install`. I couldn't run the project without running `yarn`
-
-
 ## Screenshot of the page
 ![Screenshot Profile Page](./app/assets/images/frontpage.png)
 

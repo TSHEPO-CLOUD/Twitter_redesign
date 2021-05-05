@@ -6,7 +6,7 @@ RSpec.describe Opinion, type: :model do
   end
 
   describe 'Validation' do
-    it { should_not validate_length_of(:text).is_at_least(5)}
+    it { should_not validate_length_of(:text).is_at_least(5) }
     it { should validate_length_of(:text).is_at_most(300) }
   end
 end

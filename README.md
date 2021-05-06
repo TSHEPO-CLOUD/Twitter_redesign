@@ -2,6 +2,8 @@
 
 In this project, I redesigned a twitter to create opinions about football games. I used a lot of knowledge acquired throughout the Ruby on Rails section, Model/View/Controller concepts, some of bootstrap from previous HTML & CSS, among other knowledge acquired on Microverse to create an MVP for this app.
 
+## Acknowledgements
+Design idea was inspired by Gregoire Vella on Behance
 
 ## Screenshot of the page
 ![Screenshot Profile Page](./app/assets/images/frontpage.png)
